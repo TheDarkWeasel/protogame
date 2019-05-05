@@ -34,3 +34,5 @@ sysinfo.txt
 # Builds
 *.apk
 *.unitypackage
+BloodBuilder/Assets/Resources/ToonyTinyPeople/
+BloodBuilder/Assets/Resources/ToonyTinyPeople.meta
