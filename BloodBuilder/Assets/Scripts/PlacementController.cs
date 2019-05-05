@@ -1,52 +1,67 @@
 ﻿using UnityEngine;
-using System.Collections;
+using System.Collections.Generic;
 
 public class PlacementController
 {
-    [SerializeField]
-    private GameObject placeableObjectPrefab;
+    private List<BuildingManager> buildingManagers; 
+    private Building buildingToPlace;
+    private Vector3 specificVector = new Vector3();
 
-    [SerializeField]
-    private KeyCode newObjectHotkey = KeyCode.A;
-
-    private GameObject currentPlaceableObject;
-    Vector3 specificVector = new Vector3();
-
-    public PlacementController(GameObject prefabToPlace, KeyCode hotkey)
+    public PlacementController()
     {
-        this.placeableObjectPrefab = prefabToPlace;
-        this.newObjectHotkey = hotkey;
+        buildingManagers = new List<BuildingManager>();
+    }
+
+    public void RegisterBuildingManager(BuildingManager manager)
+    {
+        buildingManagers.Add(manager);
+    }
+
+    public void UnregisterBuildingManager(BuildingManager manager)
+    {
+        buildingManagers.Remove(manager);
     }
 
     public void Update()
     {
-        HandleNewObjectHotkey();
+        bool newBuilding = HandleNewObjectHotkey();
 
-        if (currentPlaceableObject != null)
+        if (buildingToPlace != null)
         {
-            MoveCurrentObjectToMouse();
+            MoveCurrentObjectToMouse(newBuilding);
             ReleaseIfClicked();
         }
     }
 
-    private void HandleNewObjectHotkey()
+    /**
+     * Returns true, if a new building was created
+     */
+    private bool HandleNewObjectHotkey()
     {
-        if (Input.GetKeyDown(newObjectHotkey))
+        foreach(BuildingManager manager in buildingManagers)
         {
-            if (currentPlaceableObject != null)
+            if (Input.GetKeyDown(manager.GetPlacementHotkey()))
             {
-                Object.Destroy(currentPlaceableObject);
-            }
-            else
-            {
-                currentPlaceableObject = Object.Instantiate(placeableObjectPrefab);
+                if(buildingToPlace == null)
+                {
+                    buildingToPlace = manager.CreateBuilding();
+                    return true;
+                } else
+                {
+                    manager.ReleaseBuilding(buildingToPlace);
+                    buildingToPlace = null;
+                }
+                //Duplicate keycodes are not supported
+                break;
             }
         }
+
+        return false;
     }
 
-    private void MoveCurrentObjectToMouse()
+    private void MoveCurrentObjectToMouse(bool forceMove)
     {
-        if(HasMouseMoved())
+        if(forceMove || HasMouseMoved())
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
@@ -54,8 +69,7 @@ public class PlacementController
             if (Physics.Raycast(ray, out hitInfo))
             {
                 specificVector.Set(hitInfo.point.x, hitInfo.collider.transform.position.y, hitInfo.point.z);
-                currentPlaceableObject.transform.position = specificVector;
-                Debug.Log("Point: " + currentPlaceableObject.transform.position);
+                buildingToPlace.SetPosition(specificVector);
             }
         }
     }
@@ -69,7 +83,7 @@ public class PlacementController
     {
         if (Input.GetMouseButtonDown(0))
         {
-            currentPlaceableObject = null;
+            buildingToPlace = null;
         }
     }
 }

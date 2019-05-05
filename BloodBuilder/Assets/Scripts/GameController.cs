@@ -5,21 +5,28 @@ using UnityEngine;
 public class GameController : MonoBehaviour
 {
 
-    private PlacementController mPlacementController;
+    private static Theme theme = new OpenSourceTheme();
+    private PlacementController placementController;
 
-    // Start is called before the first frame update
     void Start()
     {
-        GameObject playerBase = Resources.Load<GameObject>("Models/PlayerBase");
-        mPlacementController = new PlacementController(playerBase, KeyCode.A);
+        placementController = new PlacementController();
+
+        BuildingManager playerBaseManager = new PlayerBaseManager();
+        placementController.RegisterBuildingManager(playerBaseManager);
     }
 
-    // Update is called once per frame
+
     void Update()
     {
-        if(mPlacementController != null)
+        if(placementController != null)
         {
-            mPlacementController.Update();
+            placementController.Update();
         }
+    }
+
+    public static Theme getGlobalTheme()
+    {
+        return theme;
     }
 }
