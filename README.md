@@ -9,6 +9,7 @@ These rules force the player to consider whether it is worth building a new buil
 # What is working
 
   - Constructing a player base
+  - Basic camera movement
 
 # What is not working
   - Everything else
