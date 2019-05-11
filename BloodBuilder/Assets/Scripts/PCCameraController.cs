@@ -9,11 +9,11 @@ public class PCCameraController : MonoBehaviour
 
     //TODO values dependent on map
     public float xMax = 20;
-    public float xMin = 0;
-    public float yMax = 10;
-    public float yMin = 3;
+    public float xMin = -20;
+    public float yMax = 30;
+    public float yMin = 10;
     public float zMax = 20;
-    public float zMin = 0;
+    public float zMin = -20;
 
     private Vector3 desiredPosition;
 
