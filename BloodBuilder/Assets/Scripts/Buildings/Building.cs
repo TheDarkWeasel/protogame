@@ -30,12 +30,12 @@ public abstract class Building
         Object.Destroy(instantiatedObject);
     }
 
-    public void addUnitCommand(UnitCommand command)
+    public void AddUnitCommand(UnitCommand command)
     {
         unitCommandQueue.Enqueue(command);
     }
 
-    protected void executeNextUnitCommand()
+    protected void ExecuteNextUnitCommand()
     {
         if(unitCommandQueue.Count > 0 && unitCommandCoroutine == null) {
             UnitCommand next = unitCommandQueue.Dequeue();
@@ -59,7 +59,7 @@ public abstract class Building
         public void run()
         {
             parent.unitCommandCoroutine = null;
-            parent.executeNextUnitCommand();
+            parent.ExecuteNextUnitCommand();
         }
     }
 }
