@@ -15,7 +15,7 @@ These rules force the player to consider whether it is worth building a new buil
   - Everything else
   
 # Downloads
-  - Download builds at [https://thedarkweasel.itch.io/bloodbuilder]
+  - Download builds at [itch.io](https://thedarkweasel.itch.io/bloodbuilder)
 
   
 # License
