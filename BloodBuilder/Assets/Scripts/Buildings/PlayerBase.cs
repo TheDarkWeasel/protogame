@@ -3,7 +3,7 @@ using System.Collections;
 
 public class PlayerBase : Building
 {
-    public PlayerBase() : base()
+    public PlayerBase(ContextProvider context) : base(context)
     {
         prefabPath = GameController.getGlobalTheme().getPlayerBasePrefabPath();
     }
