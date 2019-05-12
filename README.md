@@ -13,6 +13,9 @@ These rules force the player to consider whether it is worth building a new buil
 
 # What is not working
   - Everything else
+  
+# Downloads
+  - Download builds at [https://thedarkweasel.itch.io/bloodbuilder]
 
   
 # License
