@@ -20,6 +20,12 @@ public abstract class Building
         instantiatedObject = Object.Instantiate(Resources.Load<GameObject>(prefabPath));
     }
 
+    public Vector3 GetUnitCreationPosition()
+    {
+        //TODO later the player may reposition this
+        return instantiatedObject.transform.position + new Vector3(8, 0, 0);
+    }
+
     public void SetPosition(Vector3 position)
     {
         instantiatedObject.transform.position = position;
@@ -33,6 +39,7 @@ public abstract class Building
     public void AddUnitCommand(UnitCommand command)
     {
         unitCommandQueue.Enqueue(command);
+        ExecuteNextUnitCommand();
     }
 
     protected void ExecuteNextUnitCommand()
@@ -61,5 +68,10 @@ public abstract class Building
             parent.unitCommandCoroutine = null;
             parent.ExecuteNextUnitCommand();
         }
+    }
+
+    public virtual void OnPlaced()
+    {
+        //nothing here, yet
     }
 }

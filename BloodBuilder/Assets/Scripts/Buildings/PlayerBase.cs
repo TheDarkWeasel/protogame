@@ -7,4 +7,10 @@ public class PlayerBase : Building
     {
         prefabPath = GameController.getGlobalTheme().getPlayerBasePrefabPath();
     }
+
+    public override void OnPlaced()
+    {
+        base.OnPlaced();
+        AddUnitCommand(new BuildInfantryCommand(GetUnitCreationPosition()));
+    }
 }

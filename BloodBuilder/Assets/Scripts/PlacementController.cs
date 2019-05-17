@@ -83,6 +83,7 @@ public class PlacementController
     {
         if (Input.GetMouseButtonDown(0))
         {
+            buildingToPlace.OnPlaced();
             buildingToPlace = null;
         }
     }
