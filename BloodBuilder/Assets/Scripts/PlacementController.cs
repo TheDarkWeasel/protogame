@@ -33,6 +33,11 @@ public class PlacementController
         }
     }
 
+    public bool IsActive()
+    {
+        return buildingToPlace != null;
+    }
+
     /**
      * Returns true, if a new building was created
      */

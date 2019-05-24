@@ -8,12 +8,14 @@ public class GameController : MonoBehaviour
 
     private static Theme theme = new OpenSourceTheme();
     private PlacementController placementController;
+    private SelectionController selectionController;
     private ContextProvider context;
 
     void Start()
     {
         this.context = new ContextProvider(this);
         placementController = new PlacementController();
+        selectionController = new SelectionController();
 
         BuildingManager playerBaseManager = new PlayerBaseManager(context);
         placementController.RegisterBuildingManager(playerBaseManager);
@@ -24,9 +26,19 @@ public class GameController : MonoBehaviour
 
     void Update()
     {
+        bool placementControllerActive = false;
+
         if(placementController != null)
         {
             placementController.Update();
+            placementControllerActive = placementController.IsActive();
+        }
+
+        if(selectionController != null)
+        {
+            //Selection is only allowed, if the player is not building something
+            selectionController.IsActive = !placementControllerActive;
+            selectionController.Update();
         }
 
         //Exit
