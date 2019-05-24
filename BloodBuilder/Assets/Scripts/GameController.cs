@@ -28,13 +28,13 @@ public class GameController : MonoBehaviour
     {
         bool placementControllerActive = false;
 
-        if(placementController != null)
+        if (placementController != null)
         {
             placementController.Update();
             placementControllerActive = placementController.IsActive();
         }
 
-        if(selectionController != null)
+        if (selectionController != null)
         {
             //Selection is only allowed, if the player is not building something
             selectionController.IsActive = !placementControllerActive;
@@ -45,6 +45,14 @@ public class GameController : MonoBehaviour
         if (Input.GetKey("escape"))
         {
             Application.Quit();
+        }
+    }
+
+    void OnGUI()
+    {
+        if (selectionController != null)
+        {
+            selectionController.OnGUI();
         }
     }
 
