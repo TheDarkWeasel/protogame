@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 
-public abstract class Building
+public abstract class Building : PlayerSelectableObject
 {
     protected string prefabPath;
     protected GameObject instantiatedObject;
@@ -73,5 +73,15 @@ public abstract class Building
     public virtual void OnPlaced()
     {
         //nothing here, yet
+    }
+
+    public void Select(bool selected)
+    {
+        Debug.Log("Building selected: " + selected);
+    }
+
+    public GameObject GetGameObject()
+    {
+        return instantiatedObject;
     }
 }

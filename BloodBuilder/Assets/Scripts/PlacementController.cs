@@ -6,10 +6,12 @@ public class PlacementController
     private List<BuildingManager> buildingManagers; 
     private Building buildingToPlace;
     private Vector3 specificVector = new Vector3();
+    private PlayerObjectPool playerObjectPool;
 
-    public PlacementController()
+    public PlacementController(ContextProvider contextProvider)
     {
         buildingManagers = new List<BuildingManager>();
+        this.playerObjectPool = contextProvider.GetPlayerObjectPool();
     }
 
     public void RegisterBuildingManager(BuildingManager manager)
@@ -89,6 +91,7 @@ public class PlacementController
         if (Input.GetMouseButtonDown(0))
         {
             buildingToPlace.OnPlaced();
+            playerObjectPool.AddSelectableObject(buildingToPlace);
             buildingToPlace = null;
         }
     }
