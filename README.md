@@ -1,6 +1,6 @@
 # BloodBuilder
 BloodBuilder is a simple RTS, with the following rules:
-  - Units are build for no costs at all
+  - Units are built for no costs at all
   - For constructing a building you need blood
   - Blood is provided by sacrificing units
  
@@ -10,6 +10,8 @@ These rules force the player to consider whether it is worth building a new buil
 
   - Constructing a player base
   - Basic camera movement
+  - Buildings are selectable
+  - A first unit is automatically built, when a base is created (will be changed later)
 
 # What is not working
   - Everything else

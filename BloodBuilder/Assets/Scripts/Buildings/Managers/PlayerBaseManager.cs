@@ -24,10 +24,7 @@ public class PlayerBaseManager : BuildingManager
     public List<PlayerSelectableObject> GetPlayerSelectableObjects()
     {
         List<PlayerSelectableObject> result = new List<PlayerSelectableObject>();
-        foreach (var selectableObject in placedBuildings)
-        {
-            result.Add(selectableObject);
-        }
+        result.AddRange(placedBuildings);
         return result;
     }
 
