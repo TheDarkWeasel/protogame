@@ -3,7 +3,7 @@ using System.Collections;
 
 public interface Theme
 {
-    string getPlayerBasePrefabPath();
-    string getInfantryPrefabPath();
-    string getSelectionCirclePrefabPath();
+    string GetPlayerBasePrefabPath();
+    string GetInfantryPrefabPath();
+    string GetSelectionCirclePrefabPath();
 }

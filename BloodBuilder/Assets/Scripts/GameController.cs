@@ -7,6 +7,7 @@ public class GameController : MonoBehaviour
 {
 
     private static Theme theme = new OpenSourceTheme();
+    private static Hotkeys hotkeys = new PCHotkeys();
     private PlacementController placementController;
     private SelectionController selectionController;
     private PlayerObjectPool playerObjectPool;
@@ -45,7 +46,7 @@ public class GameController : MonoBehaviour
         }
 
         //Exit
-        if (Input.GetKey("escape"))
+        if (Input.GetKey(GetHotkeys().GetQuitHotkey()))
         {
             Application.Quit();
         }
@@ -59,8 +60,13 @@ public class GameController : MonoBehaviour
         }
     }
 
-    public static Theme getGlobalTheme()
+    public static Theme GetGlobalTheme()
     {
         return theme;
+    }
+
+    public static Hotkeys GetHotkeys()
+    {
+        return hotkeys;
     }
 }

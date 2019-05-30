@@ -8,7 +8,7 @@ public class PlayerBaseManager : BuildingManager
 
     public PlayerBaseManager(ContextProvider context)
     {
-        placementHotkey = KeyCode.B;
+        placementHotkey = GameController.GetHotkeys().GetBuildPlayerBaseHotkey();
         this.context = context;
     }
 

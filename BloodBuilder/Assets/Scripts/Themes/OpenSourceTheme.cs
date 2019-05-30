@@ -3,17 +3,17 @@ using System.Collections;
 
 public class OpenSourceTheme : Theme
 {
-    public string getInfantryPrefabPath()
+    public string GetInfantryPrefabPath()
     {
         return "Models/Infantry";
     }
 
-    public string getSelectionCirclePrefabPath()
+    public string GetSelectionCirclePrefabPath()
     {
         return "Models/SelectionCirclePrefab";
     }
 
-    string Theme.getPlayerBasePrefabPath()
+    string Theme.GetPlayerBasePrefabPath()
     {
         return "Models/PlayerBase";
     }

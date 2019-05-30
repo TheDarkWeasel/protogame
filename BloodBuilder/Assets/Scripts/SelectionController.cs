@@ -18,7 +18,7 @@ public class SelectionController
     public SelectionController(ContextProvider context)
     {
         this.context = context;
-        selectionCirclePrefab = Resources.Load<GameObject>(GameController.getGlobalTheme().getSelectionCirclePrefabPath());
+        selectionCirclePrefab = Resources.Load<GameObject>(GameController.GetGlobalTheme().GetSelectionCirclePrefabPath());
     }
 
     public void Update()

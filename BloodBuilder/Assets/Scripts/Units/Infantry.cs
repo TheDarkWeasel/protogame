@@ -6,6 +6,6 @@ public class Infantry : Unit
 {
     public Infantry() : base()
     {
-        prefabPath = GameController.getGlobalTheme().getInfantryPrefabPath();
+        prefabPath = GameController.GetGlobalTheme().GetInfantryPrefabPath();
     }
 }

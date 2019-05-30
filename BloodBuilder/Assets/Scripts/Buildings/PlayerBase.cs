@@ -5,7 +5,7 @@ public class PlayerBase : Building
 {
     public PlayerBase(ContextProvider context) : base(context)
     {
-        prefabPath = GameController.getGlobalTheme().getPlayerBasePrefabPath();
+        prefabPath = GameController.GetGlobalTheme().GetPlayerBasePrefabPath();
     }
 
     public override void OnPlaced()

@@ -29,18 +29,18 @@ public class PCCameraController : MonoBehaviour
         float z = 0;
         float speed = scrollZone * Time.deltaTime;
 
-        if(Input.mousePosition.x < scrollZone || Input.GetKey(KeyCode.A))
+        if(Input.mousePosition.x < scrollZone || Input.GetKey(GameController.GetHotkeys().GetCameraMoveLeftHotkey()))
         {
             x -= speed;
-        } else if(Input.mousePosition.x > Screen.width - scrollZone || Input.GetKey(KeyCode.D))
+        } else if(Input.mousePosition.x > Screen.width - scrollZone || Input.GetKey(GameController.GetHotkeys().GetCameraMoveRightHotkey()))
         {
             x += speed;
         }
 
-        if(Input.mousePosition.y < scrollZone || Input.GetKey(KeyCode.S))
+        if(Input.mousePosition.y < scrollZone || Input.GetKey(GameController.GetHotkeys().GetCameraMoveDownHotkey()))
         {
             z -= speed;
-        } else if(Input.mousePosition.y > Screen.height - scrollZone || Input.GetKey(KeyCode.W))
+        } else if(Input.mousePosition.y > Screen.height - scrollZone || Input.GetKey(GameController.GetHotkeys().GetCameraMoveUpHotkey()))
         {
             z += speed;
         }
