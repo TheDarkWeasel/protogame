@@ -23,6 +23,7 @@ public class GameController : MonoBehaviour
 
         BuildingManager playerBaseManager = new PlayerBaseManager(context);
         placementController.RegisterBuildingManager(playerBaseManager);
+        playerObjectPool.RegisterSelectableObjectContainer(playerBaseManager);
 
         Camera.main.gameObject.AddComponent<PCCameraController>();
     }

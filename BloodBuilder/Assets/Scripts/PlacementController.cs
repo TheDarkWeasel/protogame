@@ -7,6 +7,7 @@ public class PlacementController
     private Building buildingToPlace;
     private Vector3 specificVector = new Vector3();
     private PlayerObjectPool playerObjectPool;
+    private BuildingManager activeManager;
 
     public PlacementController(ContextProvider contextProvider)
     {
@@ -52,10 +53,12 @@ public class PlacementController
                 if(buildingToPlace == null)
                 {
                     buildingToPlace = manager.CreateBuilding();
+                    activeManager = manager;
                     return true;
                 } else
                 {
                     manager.ReleaseBuilding(buildingToPlace);
+                    activeManager = null;
                     buildingToPlace = null;
                 }
                 //Duplicate keycodes are not supported
@@ -90,8 +93,8 @@ public class PlacementController
     {
         if (Input.GetMouseButtonDown(0))
         {
-            buildingToPlace.OnPlaced();
-            playerObjectPool.AddSelectableObject(buildingToPlace);
+            activeManager.PlaceBuilding(buildingToPlace);
+            activeManager = null;
             buildingToPlace = null;
         }
     }
