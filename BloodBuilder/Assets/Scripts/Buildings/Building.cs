@@ -9,6 +9,7 @@ public abstract class Building : PlayerSelectableObject
     protected Queue<UnitCommand> unitCommandQueue = new Queue<UnitCommand>();
     protected Coroutine unitCommandCoroutine;
     protected ContextProvider context;
+    protected GameObject selectionCircle;
 
     public Building(ContextProvider context)
     {
@@ -83,5 +84,15 @@ public abstract class Building : PlayerSelectableObject
     public GameObject GetGameObject()
     {
         return instantiatedObject;
+    }
+
+    public GameObject GetSelectionCircle()
+    {
+        return selectionCircle;
+    }
+
+    public void SetSelectionCircle(GameObject selectionCircle)
+    {
+        this.selectionCircle = selectionCircle;
     }
 }

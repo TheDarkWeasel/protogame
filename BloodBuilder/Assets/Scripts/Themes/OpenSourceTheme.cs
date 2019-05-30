@@ -8,6 +8,11 @@ public class OpenSourceTheme : Theme
         return "Models/Infantry";
     }
 
+    public string getSelectionCirclePrefabPath()
+    {
+        return "Models/SelectionCirclePrefab";
+    }
+
     string Theme.getPlayerBasePrefabPath()
     {
         return "Models/PlayerBase";

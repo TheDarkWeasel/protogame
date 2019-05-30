@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 
 /**
-  * Contains parts from: https://hyunkell.com/blog/rts-style-unit-selection-in-unity-5/
+  * Contains parts from: https://hyunkell.com/blog/rts-style-unit-selection-in-unity-5/ written by Jeff Zimmer
   **/
 public class SelectionController
 {
@@ -13,9 +13,12 @@ public class SelectionController
     private Vector3 mousePosition1;
     private ContextProvider context;
 
+    public GameObject selectionCirclePrefab;
+
     public SelectionController(ContextProvider context)
     {
         this.context = context;
+        selectionCirclePrefab = Resources.Load<GameObject>(GameController.getGlobalTheme().getSelectionCirclePrefabPath());
     }
 
     public void Update()
@@ -27,6 +30,15 @@ public class SelectionController
             {
                 isSelecting = true;
                 mousePosition1 = Input.mousePosition;
+
+                foreach (var selectableObject in context.GetPlayerObjectPool().GetPlayerSelectableObjects())
+                {
+                    if (selectableObject.GetSelectionCircle() != null)
+                    {
+                        Object.Destroy(selectableObject.GetSelectionCircle().gameObject);
+                        selectableObject.SetSelectionCircle(null);
+                    }
+                }
             }
             // If we let go of the left mouse button, end selection
             if (Input.GetMouseButtonUp(0))
@@ -45,6 +57,30 @@ public class SelectionController
                     }
                 }
                 isSelecting = false;
+            }
+
+            // Highlight all objects within the selection box
+            if (isSelecting)
+            {
+                foreach (var selectableObject in context.GetPlayerObjectPool().GetPlayerSelectableObjects())
+                {
+                    if (IsWithinSelectionBounds(selectableObject.GetGameObject()))
+                    {
+                        if (selectableObject.GetSelectionCircle() == null)
+                        {
+                            selectableObject.SetSelectionCircle(Object.Instantiate(selectionCirclePrefab));
+                            selectableObject.GetSelectionCircle().transform.SetParent(selectableObject.GetGameObject().transform, false);
+                            selectableObject.GetSelectionCircle().transform.eulerAngles = new Vector3(90, 0, 0);
+                        }
+                    }
+                    else
+                    {
+                        if (selectableObject.GetSelectionCircle() != null)
+                        {
+                            Object.Destroy(selectableObject.GetSelectionCircle().gameObject);
+                            selectableObject.SetSelectionCircle(null);                        }
+                    }
+                }
             }
         }
     }

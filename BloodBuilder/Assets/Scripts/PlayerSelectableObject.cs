@@ -9,4 +9,6 @@ public interface PlayerSelectableObject
     void Select(bool selected);
 
     GameObject GetGameObject();
+    GameObject GetSelectionCircle();
+    void SetSelectionCircle(GameObject selectionCircle);
 }

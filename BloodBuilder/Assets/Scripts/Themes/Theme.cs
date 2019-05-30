@@ -5,4 +5,5 @@ public interface Theme
 {
     string getPlayerBasePrefabPath();
     string getInfantryPrefabPath();
+    string getSelectionCirclePrefabPath();
 }

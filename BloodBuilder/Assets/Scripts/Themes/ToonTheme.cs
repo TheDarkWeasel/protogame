@@ -12,4 +12,9 @@ public class ToonTheme : Theme
     {
         return "ToonyTinyPeople/TT_RTS/TT_RTS_Standard/models/buildings/Castle";
     }
+
+    public string getSelectionCirclePrefabPath()
+    {
+        return "Models/SelectionCirclePrefab";
+    }
 }
