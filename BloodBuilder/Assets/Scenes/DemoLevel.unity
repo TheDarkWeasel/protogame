@@ -612,19 +612,5 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 8051876480795443516, guid: 475ae5950d1fb5043a14d5adbcd679b9,
-        type: 3}
-      propertyPath: m_Text
-      value: 'Press ''B'' to build a base
-
-        Press ''I'' to build a unit
-
-        Press ''Escape'' to exit
-
-        Move mouse to move camera
-
-
-        Sorry, you cannot do more ;)'
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 475ae5950d1fb5043a14d5adbcd679b9, type: 3}
