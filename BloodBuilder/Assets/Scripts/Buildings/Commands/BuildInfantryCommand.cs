@@ -1,21 +1,22 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class BuildInfantryCommand : UnitCommand
+public class BuildUnitCommand : UnitCommand
 {
 
-    private InfantryManager infantryManager = new InfantryManager();
+    private UnitManager unitManager;
 
-    public BuildInfantryCommand(Vector3 positionForFinishedUnit) : base(positionForFinishedUnit)
+    public BuildUnitCommand(UnitManager unitManager, Vector3 positionForFinishedUnit) : base(positionForFinishedUnit)
     {
+        this.unitManager = unitManager;
     }
 
     protected override IEnumerator CommandFunction()
     {
-        Unit unit = infantryManager.CreateUnit();
+        Unit unit = unitManager.CreateUnit();
         unit.SetPosition(getPositionForFinishedUnit());
-        finish();
         //TODO we introduce build time later
         yield return null;
+        finish();
     }
 }

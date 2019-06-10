@@ -46,6 +46,16 @@ public class GameController : MonoBehaviour
             selectionController.Update();
         }
 
+        if(playerObjectPool != null)
+        {
+            //TODO I don't know, if this will be the final way of triggering the unit building process.
+            //It does not feel right and looks inperfomant. Very likely to be changed. But for now it should work.
+            foreach(PlayerSelectableObject playerSelectableObject in playerObjectPool.GetSelectedObjects())
+            {
+                playerSelectableObject.Update();
+            }
+        }
+
         //Exit
         if (Input.GetKey(GetHotkeys().GetQuitHotkey()))
         {

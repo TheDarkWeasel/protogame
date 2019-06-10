@@ -10,6 +10,7 @@ public abstract class Building : PlayerSelectableObject
     protected Coroutine unitCommandCoroutine;
     protected ContextProvider context;
     protected GameObject selectionCircle;
+    protected bool selected = false;
 
     public Building(ContextProvider context)
     {
@@ -39,17 +40,25 @@ public abstract class Building : PlayerSelectableObject
 
     public void AddUnitCommand(UnitCommand command)
     {
+        Debug.Log("Unit command added");
         unitCommandQueue.Enqueue(command);
         ExecuteNextUnitCommand();
     }
 
     protected void ExecuteNextUnitCommand()
     {
+
         if(unitCommandQueue.Count > 0 && unitCommandCoroutine == null) {
+            Debug.Log("Executing next command");
             UnitCommand next = unitCommandQueue.Dequeue();
             next.SetOnDoneListener(new OnUnitCommandDone(this));
             unitCommandCoroutine = context.GetMonoBehaviour().StartCoroutine(next.Execute());
         }
+    }
+
+    void ResetCommandCoroutine()
+    {
+        unitCommandCoroutine = null;
     }
 
     /**
@@ -66,7 +75,7 @@ public abstract class Building : PlayerSelectableObject
 
         public void run()
         {
-            parent.unitCommandCoroutine = null;
+            parent.ResetCommandCoroutine();
             parent.ExecuteNextUnitCommand();
         }
     }
@@ -76,9 +85,15 @@ public abstract class Building : PlayerSelectableObject
         //nothing here, yet
     }
 
+    public virtual void Update()
+    {
+        //nothing here, yet
+    }
+
     public void Select(bool selected)
     {
         Debug.Log("Building selected: " + selected);
+        this.selected = selected;
     }
 
     public GameObject GetGameObject()
@@ -94,5 +109,10 @@ public abstract class Building : PlayerSelectableObject
     public void SetSelectionCircle(GameObject selectionCircle)
     {
         this.selectionCircle = selectionCircle;
+    }
+
+    public bool IsSelected()
+    {
+        return selected;
     }
 }

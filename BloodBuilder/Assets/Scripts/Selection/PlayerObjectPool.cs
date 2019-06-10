@@ -18,4 +18,20 @@ public class PlayerObjectPool
         }
         return result;
     }
+
+    public List<PlayerSelectableObject> GetSelectedObjects()
+    {
+        List<PlayerSelectableObject> result = new List<PlayerSelectableObject>();
+        foreach (SelectableObjectContainer selectableObjectContainer in selectableObjectcontainers)
+        {
+            foreach(PlayerSelectableObject selectableObject in selectableObjectContainer.GetPlayerSelectableObjects())
+            {
+                if(selectableObject.IsSelected())
+                {
+                    result.Add(selectableObject);
+                }
+            }
+        }
+        return result;
+    }
 }
