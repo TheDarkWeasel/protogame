@@ -9,6 +9,8 @@ public abstract class Unit
     public void CreatePlacebleModel()
     {
         instantiatedObject = Object.Instantiate(Resources.Load<GameObject>(prefabPath));
+        instantiatedObject.AddComponent<Rigidbody>();
+        instantiatedObject.AddComponent<BoxCollider>();
     }
 
     public void SetPosition(Vector3 position)

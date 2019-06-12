@@ -25,7 +25,7 @@ public abstract class Building : PlayerSelectableObject
     public Vector3 GetUnitCreationPosition()
     {
         //TODO later the player may reposition this
-        return instantiatedObject.transform.position + new Vector3(8, 0, 0);
+        return instantiatedObject.transform.position + new Vector3(8, 0.001f, 0);
     }
 
     public void SetPosition(Vector3 position)
