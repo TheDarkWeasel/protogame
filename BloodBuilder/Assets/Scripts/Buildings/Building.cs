@@ -22,10 +22,21 @@ public abstract class Building : PlayerSelectableObject
         instantiatedObject = Object.Instantiate(Resources.Load<GameObject>(prefabPath));
     }
 
+    /**
+     * Position at which the unit is initially created before being moved to the assembly point
+     * */
     public Vector3 GetUnitCreationPosition()
     {
-        //TODO later the player may reposition this
         return instantiatedObject.transform.position + new Vector3(8, 0.001f, 0);
+    }
+
+    /**
+    * Position at which the produced units gather
+    * */
+    public Vector3 GetUnitAssemblyPoint()
+    {
+        //TODO later the player may reposition this
+        return instantiatedObject.transform.position + new Vector3(16, 0.001f, 0);
     }
 
     public void SetPosition(Vector3 position)

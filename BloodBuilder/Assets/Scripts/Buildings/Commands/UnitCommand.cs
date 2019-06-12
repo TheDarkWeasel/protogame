@@ -5,10 +5,12 @@ public abstract class UnitCommand
 {
     private OnDone onDoneListener= null;
     private Vector3 positionForFinishedUnit = new Vector3();
+    private Vector3 assemblyPoint = new Vector3();
 
-    public UnitCommand(Vector3 positionForFinishedUnit)
+    public UnitCommand(Vector3 positionForFinishedUnit, Vector3 assemblyPoint)
     {
         this.positionForFinishedUnit = positionForFinishedUnit;
+        this.assemblyPoint = assemblyPoint;
     }
 
     protected abstract IEnumerator CommandFunction();
@@ -21,6 +23,11 @@ public abstract class UnitCommand
     protected Vector3 getPositionForFinishedUnit()
     {
         return positionForFinishedUnit;
+    }
+
+    protected Vector3 getAssemblyPoint()
+    {
+        return assemblyPoint;
     }
 
     /**

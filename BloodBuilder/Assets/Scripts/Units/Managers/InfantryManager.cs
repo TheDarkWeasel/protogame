@@ -22,6 +22,11 @@ public class InfantryManager : UnitManager
         return placementHotkey;
     }
 
+    public int GetBuildTimeInSeconds()
+    {
+        return 2;
+    }
+
     public void ReleaseUnit(Unit unit)
     {
         unit.Destroy();

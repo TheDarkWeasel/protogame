@@ -24,7 +24,7 @@ public class PlayerBase : Building
         foreach(UnitManager manager in registeredUnitManagers)
         {
             if(Input.GetKeyDown(manager.GetBuildHotkey())) {
-                AddUnitCommand(new BuildUnitCommand(manager, GetUnitCreationPosition()));
+                AddUnitCommand(new BuildUnitCommand(manager, GetUnitCreationPosition(), GetUnitAssemblyPoint()));
             }
         }
     }
