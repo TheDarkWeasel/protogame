@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.AI;
 
 public abstract class Building : PlayerSelectableObject
 {
@@ -93,7 +94,8 @@ public abstract class Building : PlayerSelectableObject
 
     public virtual void OnPlaced()
     {
-        //nothing here, yet
+        instantiatedObject.AddComponent<BoxCollider>();
+        instantiatedObject.AddComponent<NavMeshObstacle>();
     }
 
     public virtual void Update()
