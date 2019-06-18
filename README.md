@@ -14,7 +14,6 @@ These rules force the player to consider whether it is worth building a new buil
   - Units are put in a build queue by pressing 'I' and are then produced after a specific time
 
 # What is not working
-  - Units won't stop after production
   - Everything else
   
 # Downloads

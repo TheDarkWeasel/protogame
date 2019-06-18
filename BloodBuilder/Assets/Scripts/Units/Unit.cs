@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
 using System.Collections;
-using UnityEngine.AI;
 
 public abstract class Unit
 {
@@ -12,7 +11,7 @@ public abstract class Unit
         instantiatedObject = Object.Instantiate(Resources.Load<GameObject>(prefabPath));
         instantiatedObject.AddComponent<Rigidbody>();
         instantiatedObject.AddComponent<BoxCollider>();
-        instantiatedObject.AddComponent<NavMeshAgent>();
+        instantiatedObject.AddComponent<UnitNavigation>();
     }
 
     public void SetPosition(Vector3 position)
@@ -22,7 +21,7 @@ public abstract class Unit
 
     public void MoveToPosition(Vector3 position)
     {
-        instantiatedObject.GetComponent<NavMeshAgent>().SetDestination(position);
+        instantiatedObject.GetComponent<UnitNavigation>().SetDestination(position);
     }
 
     public void Destroy()
