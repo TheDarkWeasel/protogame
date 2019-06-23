@@ -1,10 +1,12 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public abstract class Unit
+public abstract class Unit : PlayerSelectableObject
 {
     protected string prefabPath;
     protected GameObject instantiatedObject;
+    protected GameObject selectionCircle;
+    protected bool selected = false;
 
     public void CreatePlacebleModel()
     {
@@ -27,5 +29,41 @@ public abstract class Unit
     public void Destroy()
     {
         Object.Destroy(instantiatedObject);
+    }
+
+    public void Select(bool selected)
+    {
+        this.selected = selected;
+    }
+
+    public bool IsSelected()
+    {
+        return this.selected;
+    }
+
+    public virtual void Update()
+    {
+        //Nothing to do here, yet
+    }
+
+    public GameObject GetGameObject()
+    {
+        return instantiatedObject;
+    }
+
+    public GameObject GetSelectionCircle()
+    {
+        return selectionCircle;
+    }
+
+    public void SetSelectionCircle(GameObject selectionCircle)
+    {
+        this.selectionCircle = selectionCircle;
+    }
+
+    public float GetOrthographicSizeForSelectionCircle()
+    {
+        //may be overriden, when we have more units
+        return 1.5f;
     }
 }

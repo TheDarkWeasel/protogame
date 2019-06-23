@@ -14,4 +14,5 @@ public interface PlayerSelectableObject
     GameObject GetGameObject();
     GameObject GetSelectionCircle();
     void SetSelectionCircle(GameObject selectionCircle);
+    float GetOrthographicSizeForSelectionCircle();
 }

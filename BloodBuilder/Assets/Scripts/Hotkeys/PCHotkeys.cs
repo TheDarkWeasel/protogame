@@ -28,6 +28,11 @@ public class PCHotkeys : Hotkeys
         return KeyCode.W;
     }
 
+    public KeyCode GetInfantryBuildHotkey()
+    {
+        return KeyCode.I;
+    }
+
     public KeyCode GetQuitHotkey()
     {
         return KeyCode.Escape;

@@ -25,6 +25,9 @@ public class GameController : MonoBehaviour
         placementController.RegisterBuildingManager(playerBaseManager);
         playerObjectPool.RegisterSelectableObjectContainer(playerBaseManager);
 
+        InfantryManager infantryManager = InfantryManager.GetInstance();
+        playerObjectPool.RegisterSelectableObjectContainer(infantryManager);
+
         Camera.main.gameObject.AddComponent<PCCameraController>();
     }
 

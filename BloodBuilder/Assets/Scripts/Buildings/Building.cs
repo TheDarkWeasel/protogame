@@ -128,4 +128,10 @@ public abstract class Building : PlayerSelectableObject
     {
         return selected;
     }
+
+    public float GetOrthographicSizeForSelectionCircle()
+    {
+        //may be overriden, when we have more buildings
+        return 9.5f;
+    }
 }

@@ -9,8 +9,7 @@ public class PlayerBase : Building
     public PlayerBase(ContextProvider context) : base(context)
     {
         prefabPath = GameController.GetGlobalTheme().GetPlayerBasePrefabPath();
-        //TODO initialization should be moved somewhere else
-        registeredUnitManagers.Add(new InfantryManager());
+        registeredUnitManagers.Add(InfantryManager.GetInstance());
     }
 
     public override void OnPlaced()

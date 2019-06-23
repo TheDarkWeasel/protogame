@@ -71,6 +71,7 @@ public class SelectionController
                             selectableObject.SetSelectionCircle(Object.Instantiate(selectionCirclePrefab));
                             selectableObject.GetSelectionCircle().transform.SetParent(selectableObject.GetGameObject().transform, false);
                             selectableObject.GetSelectionCircle().transform.eulerAngles = new Vector3(90, 0, 0);
+                            selectableObject.GetSelectionCircle().GetComponent<Projector>().orthographicSize = selectableObject.GetOrthographicSizeForSelectionCircle();
                         }
                     }
                     else

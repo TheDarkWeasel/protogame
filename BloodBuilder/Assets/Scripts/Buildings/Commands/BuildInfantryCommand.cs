@@ -18,6 +18,7 @@ public class BuildUnitCommand : UnitCommand
         Unit unit = unitManager.CreateUnit();
         unit.SetPosition(getPositionForFinishedUnit());
         unit.MoveToPosition(getAssemblyPoint());
+        unitManager.FinishUnitConstruction(unit);
         finish();
     }
 }
