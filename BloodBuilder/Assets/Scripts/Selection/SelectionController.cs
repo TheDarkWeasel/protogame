@@ -12,6 +12,7 @@ public class SelectionController
     private bool isSelecting = false;
     private Vector3 mousePosition1;
     private ContextProvider context;
+    private Camera mainCamera;
 
     public GameObject selectionCirclePrefab;
 
@@ -19,6 +20,7 @@ public class SelectionController
     {
         this.context = context;
         selectionCirclePrefab = Resources.Load<GameObject>(GameController.GetGlobalTheme().GetSelectionCirclePrefabPath());
+        mainCamera = Camera.main;
     }
 
     public void Update()
@@ -96,7 +98,7 @@ public class SelectionController
         if (!isSelecting)
             return false;
 
-        Ray ray = Camera.main.ScreenPointToRay(mousePosition1);
+        Ray ray = mainCamera.ScreenPointToRay(mousePosition1);
 
         RaycastHit hitInfo;
         if (Physics.Raycast(ray, out hitInfo))
@@ -105,7 +107,7 @@ public class SelectionController
                 return true;
         }
 
-        var camera = Camera.main;
+        var camera = mainCamera;
         var viewportBounds = Utils.GetViewportBounds(camera, mousePosition1, Input.mousePosition);
         return viewportBounds.Contains(camera.WorldToViewportPoint(gameObject.transform.position));
     }
@@ -121,6 +123,13 @@ public class SelectionController
         }
     }
 
+    public bool IsActive()
+    {
+        return isActive;
+    }
 
-    public bool IsActive { get => isActive; set => isActive = value; }
+    public void SetActive(bool active)
+    {
+        isActive = active;
+    }
 }

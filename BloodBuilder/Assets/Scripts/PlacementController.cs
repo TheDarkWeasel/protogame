@@ -9,10 +9,13 @@ public class PlacementController
     private PlayerObjectPool playerObjectPool;
     private BuildingManager activeManager;
 
+    private Camera mainCamera;
+
     public PlacementController(ContextProvider contextProvider)
     {
         buildingManagers = new List<BuildingManager>();
         this.playerObjectPool = contextProvider.GetPlayerObjectPool();
+        mainCamera = Camera.main;
     }
 
     public void RegisterBuildingManager(BuildingManager manager)
@@ -73,7 +76,7 @@ public class PlacementController
     {
         if(forceMove || HasMouseMoved())
         {
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            Ray ray = mainCamera.ScreenPointToRay(Input.mousePosition);
 
             RaycastHit hitInfo;
             if (Physics.Raycast(ray, out hitInfo))

@@ -45,7 +45,7 @@ public class GameController : MonoBehaviour
         if (selectionController != null)
         {
             //Selection is only allowed, if the player is not building something
-            selectionController.IsActive = !placementControllerActive;
+            selectionController.SetActive(!placementControllerActive);
             selectionController.Update();
         }
 
