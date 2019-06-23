@@ -91,7 +91,7 @@ public class PlacementController
 
     private void ReleaseIfClicked()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonUp(0))
         {
             activeManager.PlaceBuilding(buildingToPlace);
             activeManager = null;

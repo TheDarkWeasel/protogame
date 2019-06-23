@@ -33,24 +33,18 @@ public class SelectionController
 
                 foreach (var selectableObject in context.GetPlayerObjectPool().GetPlayerSelectableObjects())
                 {
-                    if (selectableObject.GetSelectionCircle() != null)
-                    {
-                        Object.Destroy(selectableObject.GetSelectionCircle().gameObject);
-                        selectableObject.SetSelectionCircle(null);
-                    }
+                    Deselect(selectableObject);
                 }
             }
             // If we let go of the left mouse button, end selection
             if (Input.GetMouseButtonUp(0))
             {
-                var selectedObjects = new List<PlayerSelectableObject>();
                 foreach (var selectableObject in context.GetPlayerObjectPool().GetPlayerSelectableObjects())
                 {
                     PlayerSelectableObject current = selectableObject;
                     if (IsWithinSelectionBounds(current.GetGameObject()))
                     {
                         selectableObject.Select(true);
-                        selectedObjects.Add(current);
                     } else
                     {
                         selectableObject.Select(false);
@@ -66,23 +60,34 @@ public class SelectionController
                 {
                     if (IsWithinSelectionBounds(selectableObject.GetGameObject()))
                     {
-                        if (selectableObject.GetSelectionCircle() == null)
-                        {
-                            selectableObject.SetSelectionCircle(Object.Instantiate(selectionCirclePrefab));
-                            selectableObject.GetSelectionCircle().transform.SetParent(selectableObject.GetGameObject().transform, false);
-                            selectableObject.GetSelectionCircle().transform.eulerAngles = new Vector3(90, 0, 0);
-                            selectableObject.GetSelectionCircle().GetComponent<Projector>().orthographicSize = selectableObject.GetOrthographicSizeForSelectionCircle();
-                        }
+                        Select(selectableObject);
                     }
                     else
                     {
-                        if (selectableObject.GetSelectionCircle() != null)
-                        {
-                            Object.Destroy(selectableObject.GetSelectionCircle().gameObject);
-                            selectableObject.SetSelectionCircle(null);                        }
+                        Deselect(selectableObject);
                     }
                 }
             }
+        }
+    }
+
+    private void Select(PlayerSelectableObject selectableObject)
+    {
+        if (selectableObject.GetSelectionCircle() == null)
+        {
+            selectableObject.SetSelectionCircle(Object.Instantiate(selectionCirclePrefab));
+            selectableObject.GetSelectionCircle().transform.SetParent(selectableObject.GetGameObject().transform, false);
+            selectableObject.GetSelectionCircle().transform.eulerAngles = new Vector3(90, 0, 0);
+            selectableObject.GetSelectionCircle().GetComponent<Projector>().orthographicSize = selectableObject.GetOrthographicSizeForSelectionCircle();
+        }
+    }
+
+    private void Deselect(PlayerSelectableObject selectableObject)
+    {
+        if (selectableObject.GetSelectionCircle() != null)
+        {
+            Object.Destroy(selectableObject.GetSelectionCircle().gameObject);
+            selectableObject.SetSelectionCircle(null);
         }
     }
 
@@ -90,6 +95,15 @@ public class SelectionController
     {
         if (!isSelecting)
             return false;
+
+        Ray ray = Camera.main.ScreenPointToRay(mousePosition1);
+
+        RaycastHit hitInfo;
+        if (Physics.Raycast(ray, out hitInfo))
+        {
+            if (gameObject.GetComponent<Collider>().bounds.Contains(hitInfo.point))
+                return true;
+        }
 
         var camera = Camera.main;
         var viewportBounds = Utils.GetViewportBounds(camera, mousePosition1, Input.mousePosition);

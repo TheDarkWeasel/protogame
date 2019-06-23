@@ -10,7 +10,7 @@ These rules force the player to consider whether it is worth building a new buil
 
   - Constructing a player base
   - Basic camera movement
-  - Buildings are selectable
+  - Buildings and Units are selectable
   - Units are put in a build queue by pressing 'I' and are then produced after a specific time
 
 # What is not working
