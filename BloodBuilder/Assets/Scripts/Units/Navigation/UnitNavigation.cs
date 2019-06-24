@@ -6,6 +6,7 @@ public class UnitNavigation : MonoBehaviour
 {
 
     NavMeshAgent navMeshAgent;
+    float unitSize;
 
     void Awake()
     {
@@ -13,6 +14,7 @@ public class UnitNavigation : MonoBehaviour
         {
             gameObject.AddComponent<NavMeshAgent>();
             navMeshAgent = gameObject.GetComponent<NavMeshAgent>();
+            unitSize = GetComponent<Collider>().bounds.size.x;
         }
     }
 
@@ -21,7 +23,7 @@ public class UnitNavigation : MonoBehaviour
         //Maybe not optimal, yet. Needs more testing.
         if (!navMeshAgent.pathPending)
         {
-            if (navMeshAgent.remainingDistance <= (GetComponent<Collider>().bounds.size.x + navMeshAgent.stoppingDistance))
+            if (navMeshAgent.remainingDistance <= (unitSize + navMeshAgent.stoppingDistance))
             {
                 if (!navMeshAgent.hasPath || navMeshAgent.velocity.sqrMagnitude <= 0.6f)
                 {

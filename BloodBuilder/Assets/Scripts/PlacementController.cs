@@ -8,6 +8,7 @@ public class PlacementController
     private Vector3 specificVector = new Vector3();
     private PlayerObjectPool playerObjectPool;
     private BuildingManager activeManager;
+    private RaycastHit hitInfo;
 
     private Camera mainCamera;
 
@@ -78,7 +79,6 @@ public class PlacementController
         {
             Ray ray = mainCamera.ScreenPointToRay(Input.mousePosition);
 
-            RaycastHit hitInfo;
             if (Physics.Raycast(ray, out hitInfo))
             {
                 specificVector.Set(hitInfo.point.x, hitInfo.collider.transform.position.y, hitInfo.point.z);

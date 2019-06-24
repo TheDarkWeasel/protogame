@@ -14,6 +14,8 @@ public class SelectionController
     private ContextProvider context;
     private Camera mainCamera;
 
+    private RaycastHit hitInfo;
+
     public GameObject selectionCirclePrefab;
 
     public SelectionController(ContextProvider context)
@@ -100,11 +102,12 @@ public class SelectionController
 
         Ray ray = mainCamera.ScreenPointToRay(mousePosition1);
 
-        RaycastHit hitInfo;
         if (Physics.Raycast(ray, out hitInfo))
         {
             if (gameObject.GetComponent<Collider>().bounds.Contains(hitInfo.point))
+            {
                 return true;
+            }
         }
 
         var camera = mainCamera;
