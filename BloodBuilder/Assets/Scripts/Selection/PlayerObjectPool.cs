@@ -4,6 +4,9 @@ public class PlayerObjectPool
 {
     private List<SelectableObjectContainer> selectableObjectcontainers = new List<SelectableObjectContainer>();
 
+    private List<PlayerSelectableObject> playerSelectableObjects = new List<PlayerSelectableObject>();
+    private List<PlayerSelectableObject> selectedObjects = new List<PlayerSelectableObject>();
+
     public void RegisterSelectableObjectContainer(SelectableObjectContainer obj)
     {
         selectableObjectcontainers.Add(obj);
@@ -11,27 +14,21 @@ public class PlayerObjectPool
 
     public List<PlayerSelectableObject> GetPlayerSelectableObjects()
     {
-        List<PlayerSelectableObject> result = new List<PlayerSelectableObject>();
+        playerSelectableObjects.Clear();
         foreach (SelectableObjectContainer selectableObjectContainer in selectableObjectcontainers)
         {
-            result.AddRange(selectableObjectContainer.GetPlayerSelectableObjects());
+            selectableObjectContainer.GetPlayerSelectableObjects(playerSelectableObjects, SelectionState.ALL);
         }
-        return result;
+        return playerSelectableObjects;
     }
 
     public List<PlayerSelectableObject> GetSelectedObjects()
     {
-        List<PlayerSelectableObject> result = new List<PlayerSelectableObject>();
+        selectedObjects.Clear();
         foreach (SelectableObjectContainer selectableObjectContainer in selectableObjectcontainers)
         {
-            foreach(PlayerSelectableObject selectableObject in selectableObjectContainer.GetPlayerSelectableObjects())
-            {
-                if(selectableObject.IsSelected())
-                {
-                    result.Add(selectableObject);
-                }
-            }
+            selectableObjectContainer.GetPlayerSelectableObjects(selectedObjects, SelectionState.SELECTED);
         }
-        return result;
+        return selectedObjects;
     }
 }

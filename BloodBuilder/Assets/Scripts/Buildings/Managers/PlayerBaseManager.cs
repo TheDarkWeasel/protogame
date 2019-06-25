@@ -21,13 +21,6 @@ public class PlayerBaseManager : BuildingManager
         return playerBase;
     }
 
-    public List<PlayerSelectableObject> GetPlayerSelectableObjects()
-    {
-        List<PlayerSelectableObject> result = new List<PlayerSelectableObject>();
-        result.AddRange(placedBuildings);
-        return result;
-    }
-
     public void ReleaseBuilding(Building building)
     {
         if(placedBuildings.Contains(building))
@@ -46,5 +39,34 @@ public class PlayerBaseManager : BuildingManager
     public KeyCode GetPlacementHotkey()
     {
         return placementHotkey;
+    }
+
+    public bool GetPlayerSelectableObjects(List<PlayerSelectableObject> outParam, SelectionState selectionState)
+    {
+        bool added = false;
+        foreach(Building building in placedBuildings)
+        {
+            switch (selectionState)
+            {
+                case SelectionState.SELECTED:
+                    if(building.IsSelected())
+                    {
+                        outParam.Add(building);
+                    }
+                    break;
+                case SelectionState.UNSELECTED:
+                    if (!building.IsSelected())
+                    {
+                        outParam.Add(building);
+                    }
+                    break;
+                case SelectionState.ALL:
+                    outParam.Add(building);
+                    break;
+            }
+            added = true;
+        }
+
+        return added;
     }
 }

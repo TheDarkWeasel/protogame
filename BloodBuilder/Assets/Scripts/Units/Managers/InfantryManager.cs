@@ -46,11 +46,33 @@ public class InfantryManager : UnitManager
         return 2;
     }
 
-    public List<PlayerSelectableObject> GetPlayerSelectableObjects()
+    public bool GetPlayerSelectableObjects(List<PlayerSelectableObject> outParam, SelectionState selectionState)
     {
-        List<PlayerSelectableObject> result = new List<PlayerSelectableObject>();
-        result.AddRange(builtUnits);
-        return result;
+        bool added = false;
+        foreach (Unit unit in builtUnits)
+        {
+            switch (selectionState)
+            {
+                case SelectionState.SELECTED:
+                    if (unit.IsSelected())
+                    {
+                        outParam.Add(unit);
+                    }
+                    break;
+                case SelectionState.UNSELECTED:
+                    if (!unit.IsSelected())
+                    {
+                        outParam.Add(unit);
+                    }
+                    break;
+                case SelectionState.ALL:
+                    outParam.Add(unit);
+                    break;
+            }
+            added = true;
+        }
+
+        return added;
     }
 
     public void ReleaseUnit(Unit unit)

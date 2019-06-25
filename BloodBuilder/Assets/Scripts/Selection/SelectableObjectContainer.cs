@@ -2,5 +2,8 @@
 
 public interface SelectableObjectContainer
 {
-    List<PlayerSelectableObject> GetPlayerSelectableObjects();
+    /**
+     * Returns true, if objects have been added to outParam
+     **/
+    bool GetPlayerSelectableObjects(List<PlayerSelectableObject> outParam, SelectionState selectionState);
 }
