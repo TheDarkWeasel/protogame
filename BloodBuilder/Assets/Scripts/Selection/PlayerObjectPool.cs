@@ -6,6 +6,7 @@ public class PlayerObjectPool
 
     private List<PlayerSelectableObject> playerSelectableObjects = new List<PlayerSelectableObject>();
     private List<PlayerSelectableObject> selectedObjects = new List<PlayerSelectableObject>();
+    private List<SacrificableSelectableObject> sacrificableSelectableObjects = new List<SacrificableSelectableObject>();
 
     public void RegisterSelectableObjectContainer(SelectableObjectContainer obj)
     {
@@ -14,21 +15,44 @@ public class PlayerObjectPool
 
     public List<PlayerSelectableObject> GetPlayerSelectableObjects()
     {
-        playerSelectableObjects.Clear();
-        foreach (SelectableObjectContainer selectableObjectContainer in selectableObjectcontainers)
-        {
-            selectableObjectContainer.GetPlayerSelectableObjects(playerSelectableObjects, SelectionState.ALL);
-        }
-        return playerSelectableObjects;
+        return GetObjects(playerSelectableObjects, SelectionState.ALL);
     }
 
     public List<PlayerSelectableObject> GetSelectedObjects()
     {
-        selectedObjects.Clear();
+        return GetObjects(selectedObjects, SelectionState.SELECTED);
+    }
+
+    private List<PlayerSelectableObject> GetObjects(List<PlayerSelectableObject> outList, SelectionState state)
+    {
+        outList.Clear();
         foreach (SelectableObjectContainer selectableObjectContainer in selectableObjectcontainers)
         {
-            selectableObjectContainer.GetPlayerSelectableObjects(selectedObjects, SelectionState.SELECTED);
+            selectableObjectContainer.GetPlayerSelectableObjects(outList, state);
         }
-        return selectedObjects;
+        return outList;
+    }
+
+    public List<SacrificableSelectableObject> GetSacrificableSelectedObjects()
+    {
+        sacrificableSelectableObjects.Clear();
+        foreach (SelectableObjectContainer selectableObjectContainer in selectableObjectcontainers)
+        {
+            selectableObjectContainer.GetSacrificableSelectableObjects(sacrificableSelectableObjects, SelectionState.SELECTED);
+        }
+        return sacrificableSelectableObjects;
+    }
+
+    /**
+     * Inefficient, should be changed later 
+     **/
+    public int GetBloodAmountOfObjects(List<SacrificableSelectableObject> sacrificableSelectableObjects)
+    {
+        int result = 0;
+        foreach (SacrificableSelectableObject sacrificable in sacrificableSelectableObjects)
+        {
+            result += sacrificable.GetBloodAmount();
+        }
+        return result;
     }
 }

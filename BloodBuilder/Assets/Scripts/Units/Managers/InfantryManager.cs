@@ -26,7 +26,7 @@ public class InfantryManager : UnitManager
 
     public Unit CreateUnit()
     {
-        Infantry infantry = new Infantry();
+        Infantry infantry = new Infantry(this);
         infantry.CreatePlacebleModel();
         return infantry;
     }
@@ -51,28 +51,57 @@ public class InfantryManager : UnitManager
         bool added = false;
         foreach (Unit unit in builtUnits)
         {
-            switch (selectionState)
+            bool addUnit = false;
+            addUnit = shallUnitBeAddedToSelectableObjectList(selectionState, unit, addUnit);
+            if (addUnit)
             {
-                case SelectionState.SELECTED:
-                    if (unit.IsSelected())
-                    {
-                        outParam.Add(unit);
-                    }
-                    break;
-                case SelectionState.UNSELECTED:
-                    if (!unit.IsSelected())
-                    {
-                        outParam.Add(unit);
-                    }
-                    break;
-                case SelectionState.ALL:
-                    outParam.Add(unit);
-                    break;
+                outParam.Add(unit);
+                added = true;
             }
-            added = true;
         }
 
         return added;
+    }
+
+    public bool GetSacrificableSelectableObjects(List<SacrificableSelectableObject> outParam, SelectionState selectionState)
+    {
+        bool added = false;
+        foreach (Unit unit in builtUnits)
+        {
+            bool addUnit = false;
+            addUnit = shallUnitBeAddedToSelectableObjectList(selectionState, unit, addUnit);
+            if (addUnit)
+            {
+                outParam.Add(unit);
+                added = true;
+            }
+        }
+
+        return added;
+    }
+
+    private static bool shallUnitBeAddedToSelectableObjectList(SelectionState selectionState, Unit unit, bool addUnit)
+    {
+        switch (selectionState)
+        {
+            case SelectionState.SELECTED:
+                if (unit.IsSelected())
+                {
+                    addUnit = true;
+                }
+                break;
+            case SelectionState.UNSELECTED:
+                if (!unit.IsSelected())
+                {
+                    addUnit = true;
+                }
+                break;
+            case SelectionState.ALL:
+                addUnit = true;
+                break;
+        }
+
+        return addUnit;
     }
 
     public void ReleaseUnit(Unit unit)

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 public class PlacementController
 {
-    private List<BuildingManager> buildingManagers; 
+    private List<BuildingManager> buildingManagers;
     private Building buildingToPlace;
     private Vector3 specificVector = new Vector3();
     private PlayerObjectPool playerObjectPool;
@@ -50,20 +50,25 @@ public class PlacementController
      */
     private bool HandleNewObjectHotkey()
     {
-        foreach(BuildingManager manager in buildingManagers)
+        foreach (BuildingManager manager in buildingManagers)
         {
             if (Input.GetKeyDown(manager.GetPlacementHotkey()))
             {
-                if(buildingToPlace == null)
+                //TODO check efficiency
+                if (manager.GetBuildCosts() <= playerObjectPool.GetBloodAmountOfObjects(playerObjectPool.GetSacrificableSelectedObjects()))
                 {
-                    buildingToPlace = manager.CreateBuilding();
-                    activeManager = manager;
-                    return true;
-                } else
-                {
-                    manager.ReleaseBuilding(buildingToPlace);
-                    activeManager = null;
-                    buildingToPlace = null;
+                    if (buildingToPlace == null)
+                    {
+                        buildingToPlace = manager.CreateBuilding();
+                        activeManager = manager;
+                        return true;
+                    }
+                    else
+                    {
+                        manager.ReleaseBuilding(buildingToPlace);
+                        activeManager = null;
+                        buildingToPlace = null;
+                    }
                 }
                 //Duplicate keycodes are not supported
                 break;
@@ -75,7 +80,7 @@ public class PlacementController
 
     private void MoveCurrentObjectToMouse(bool forceMove)
     {
-        if(forceMove || HasMouseMoved())
+        if (forceMove || HasMouseMoved())
         {
             Ray ray = mainCamera.ScreenPointToRay(Input.mousePosition);
 
@@ -96,9 +101,23 @@ public class PlacementController
     {
         if (Input.GetMouseButtonUp(0))
         {
-            activeManager.PlaceBuilding(buildingToPlace);
-            activeManager = null;
-            buildingToPlace = null;
+            //TODO check efficiency
+            List<SacrificableSelectableObject> sacrificableSelectableObjects = playerObjectPool.GetSacrificableSelectedObjects();
+            if (activeManager.GetBuildCosts() <= playerObjectPool.GetBloodAmountOfObjects(sacrificableSelectableObjects))
+            {
+                int sacrificedBlood = 0;
+                foreach (SacrificableSelectableObject sacrificable in sacrificableSelectableObjects)
+                {
+                    if (sacrificedBlood < activeManager.GetBuildCosts())
+                    {
+                        sacrificable.Sacrifice();
+                        sacrificedBlood += sacrificable.GetBloodAmount();
+                    }
+                }
+                activeManager.PlaceBuilding(buildingToPlace);
+                activeManager = null;
+                buildingToPlace = null;
+            }
         }
     }
 }

@@ -1,12 +1,18 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public abstract class Unit : PlayerSelectableObject
+public abstract class Unit : SacrificableSelectableObject
 {
     protected string prefabPath;
     protected GameObject instantiatedObject;
     protected GameObject selectionCircle;
     protected bool selected = false;
+    protected UnitManager parentManager;
+
+    public Unit(UnitManager parentManager)
+    {
+        this.parentManager = parentManager;
+    }
 
     public void CreatePlacebleModel()
     {
@@ -65,5 +71,12 @@ public abstract class Unit : PlayerSelectableObject
     {
         //may be overriden, when we have more units
         return 1.5f;
+    }
+
+    public abstract int GetBloodAmount();
+
+    public void Sacrifice()
+    {
+        parentManager.ReleaseUnit(this);
     }
 }

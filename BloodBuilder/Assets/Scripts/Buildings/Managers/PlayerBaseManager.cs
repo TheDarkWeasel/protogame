@@ -69,4 +69,15 @@ public class PlayerBaseManager : BuildingManager
 
         return added;
     }
+
+    public bool GetSacrificableSelectableObjects(List<SacrificableSelectableObject> outParam, SelectionState selectionState)
+    {
+        return false;
+    }
+
+    public int GetBuildCosts()
+    {
+        //For now ;)
+        return 0;
+    }
 }
