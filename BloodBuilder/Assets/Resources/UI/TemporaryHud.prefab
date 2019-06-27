@@ -34,8 +34,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 130, y: -66}
-  m_SizeDelta: {x: 200, y: 100}
+  m_AnchoredPosition: {x: 220, y: -66}
+  m_SizeDelta: {x: 400, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8051876480795443519
 CanvasRenderer:
@@ -81,6 +81,8 @@ MonoBehaviour:
   m_Text: 'Press ''B'' to build a base
 
     Press ''I'' to build a unit
+
+    Press ''N'' to build barracks (you need to select 3 units first)
 
     Press ''Escape'' to exit
 

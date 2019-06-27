@@ -3,6 +3,11 @@ using System.Collections;
 
 public class OpenSourceTheme : Theme
 {
+    public string GetBarracksPrefabPath()
+    {
+        return "Models/Barracks";
+    }
+
     public string GetInfantryPrefabPath()
     {
         return "Models/Infantry";

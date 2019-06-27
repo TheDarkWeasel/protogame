@@ -11,6 +11,7 @@ public interface Hotkeys
     KeyCode GetCameraMoveRightHotkey();
 
     KeyCode GetBuildPlayerBaseHotkey();
+    KeyCode GetBuildBarracksHotkey();
 
     KeyCode GetInfantryBuildHotkey();
 }

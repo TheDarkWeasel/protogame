@@ -12,6 +12,7 @@ These rules force the player to consider whether it is worth building a new buil
   - Basic camera movement
   - Buildings and Units are selectable
   - Units are put in a build queue by pressing 'I' and are then produced after a specific time
+  - Barracks can now be built by sacrificing 3 units
 
 # What is not working
   - Everything else

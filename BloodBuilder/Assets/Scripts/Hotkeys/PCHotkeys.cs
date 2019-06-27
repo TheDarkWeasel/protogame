@@ -3,6 +3,11 @@ using System.Collections;
 
 public class PCHotkeys : Hotkeys
 {
+    public KeyCode GetBuildBarracksHotkey()
+    {
+        return KeyCode.N;
+    }
+
     public KeyCode GetBuildPlayerBaseHotkey()
     {
         return KeyCode.B;

@@ -25,6 +25,10 @@ public class GameController : MonoBehaviour
         placementController.RegisterBuildingManager(playerBaseManager);
         playerObjectPool.RegisterSelectableObjectContainer(playerBaseManager);
 
+        BuildingManager barracksManager = new BarracksManager(context);
+        placementController.RegisterBuildingManager(barracksManager);
+        playerObjectPool.RegisterSelectableObjectContainer(barracksManager);
+
         InfantryManager infantryManager = InfantryManager.GetInstance();
         playerObjectPool.RegisterSelectableObjectContainer(infantryManager);
 
