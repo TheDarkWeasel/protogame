@@ -78,5 +78,6 @@ public abstract class Unit : SacrificableSelectableObject
     public void Sacrifice()
     {
         parentManager.ReleaseUnit(this);
+        parentManager = null;
     }
 }
