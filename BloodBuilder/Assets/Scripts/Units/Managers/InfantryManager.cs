@@ -52,7 +52,7 @@ public class InfantryManager : UnitManager
         foreach (Unit unit in builtUnits)
         {
             bool addUnit = false;
-            addUnit = shallUnitBeAddedToSelectableObjectList(selectionState, unit, addUnit);
+            addUnit = ShallUnitBeAddedToSelectableObjectList(selectionState, unit, addUnit);
             if (addUnit)
             {
                 outParam.Add(unit);
@@ -69,7 +69,7 @@ public class InfantryManager : UnitManager
         foreach (Unit unit in builtUnits)
         {
             bool addUnit = false;
-            addUnit = shallUnitBeAddedToSelectableObjectList(selectionState, unit, addUnit);
+            addUnit = ShallUnitBeAddedToSelectableObjectList(selectionState, unit, addUnit);
             if (addUnit)
             {
                 outParam.Add(unit);
@@ -80,7 +80,7 @@ public class InfantryManager : UnitManager
         return added;
     }
 
-    private static bool shallUnitBeAddedToSelectableObjectList(SelectionState selectionState, Unit unit, bool addUnit)
+    private static bool ShallUnitBeAddedToSelectableObjectList(SelectionState selectionState, Unit unit, bool addUnit)
     {
         switch (selectionState)
         {
