@@ -39,7 +39,18 @@ public abstract class Unit : SacrificableSelectableObject
 
     public void Select(bool selected)
     {
-        this.selected = selected;
+        if (this.selected != selected)
+        {
+            if (selected)
+            {
+                PlayerResources.GetInstance().IncreaseResource(GetBloodAmount(), PlayerResources.PlayerResource.SELECTED_BLOOD);
+            }
+            else
+            {
+                PlayerResources.GetInstance().DecreaseResource(GetBloodAmount(), PlayerResources.PlayerResource.SELECTED_BLOOD);
+            }
+            this.selected = selected;
+        }
     }
 
     public bool IsSelected()

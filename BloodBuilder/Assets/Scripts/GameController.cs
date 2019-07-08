@@ -33,6 +33,8 @@ public class GameController : MonoBehaviour
         playerObjectPool.RegisterSelectableObjectContainer(infantryManager);
 
         Camera.main.gameObject.AddComponent<PCCameraController>();
+
+        PlayerResources.GetInstance().RegisterListener(GameObject.Find("HUD").GetComponent<BloodCounterHUD>());
     }
 
 

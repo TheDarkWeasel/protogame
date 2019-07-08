@@ -34,6 +34,7 @@ public class InfantryManager : UnitManager
     public void FinishUnitConstruction(Unit unit)
     {
         builtUnits.Add(unit);
+        PlayerResources.GetInstance().IncreaseResource(unit.GetBloodAmount(), PlayerResources.PlayerResource.OVERALL_BLOOD);
     }
 
     public KeyCode GetBuildHotkey()
@@ -110,6 +111,7 @@ public class InfantryManager : UnitManager
         {
             builtUnits.Remove(unit);
         }
+        PlayerResources.GetInstance().DecreaseResource(unit.GetBloodAmount(), PlayerResources.PlayerResource.OVERALL_BLOOD);
         unit.Destroy();
     }
 }
