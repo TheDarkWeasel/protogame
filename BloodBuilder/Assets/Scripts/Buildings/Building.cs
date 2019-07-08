@@ -134,4 +134,24 @@ public abstract class Building : PlayerSelectableObject
         //may be overriden, when we have more buildings
         return 9.5f;
     }
+
+    public void DestroySelectionCircle()
+    {
+        if (GetSelectionCircle() != null)
+        {
+            Object.Destroy(GetSelectionCircle().gameObject);
+            SetSelectionCircle(null);
+        }
+    }
+
+    public void CreateSelectionCircle(GameObject selectionCirclePrefab)
+    {
+        if (GetSelectionCircle() == null)
+        {
+            SetSelectionCircle(Object.Instantiate(selectionCirclePrefab));
+            GetSelectionCircle().transform.SetParent(GetGameObject().transform, false);
+            GetSelectionCircle().transform.eulerAngles = new Vector3(90, 0, 0);
+            GetSelectionCircle().GetComponent<Projector>().orthographicSize = GetOrthographicSizeForSelectionCircle();
+        }
+    }
 }

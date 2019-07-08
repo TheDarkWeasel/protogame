@@ -8,11 +8,14 @@ public class BloodCounterHUD : MonoBehaviour, IResourceChangeListener
     Text overallBloodCounter;
     Text selectedBloodCounter;
 
+    Animation overallBloodBounce;
+
     // Use this for initialization
     void Start()
     {
         overallBloodCounter = GameObject.Find("OverallBloodCounter").GetComponent<Text>();
         selectedBloodCounter = GameObject.Find("SelectedBloodCounter").GetComponent<Text>();
+        overallBloodBounce = overallBloodCounter.GetComponent<Animation>();
     }
 
     void IResourceChangeListener.OnResourceChange(PlayerResources.PlayerResource resource, int amount)
@@ -21,6 +24,7 @@ public class BloodCounterHUD : MonoBehaviour, IResourceChangeListener
         {
             case PlayerResources.PlayerResource.OVERALL_BLOOD:
                 overallBloodCounter.text = "Overall Blood: " + amount;
+                overallBloodBounce.Play("UIBounce");
                 break;
             case PlayerResources.PlayerResource.SELECTED_BLOOD:
                 selectedBloodCounter.text = "Selected Blood: " + amount;

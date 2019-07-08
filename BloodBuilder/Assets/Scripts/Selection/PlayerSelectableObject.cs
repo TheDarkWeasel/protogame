@@ -12,7 +12,6 @@ public interface PlayerSelectableObject
     void Update();
 
     GameObject GetGameObject();
-    GameObject GetSelectionCircle();
-    void SetSelectionCircle(GameObject selectionCircle);
-    float GetOrthographicSizeForSelectionCircle();
+    void CreateSelectionCircle(GameObject selectionCirclePrefab);
+    void DestroySelectionCircle();
 }

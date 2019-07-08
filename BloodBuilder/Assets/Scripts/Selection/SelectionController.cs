@@ -77,22 +77,12 @@ public class SelectionController
 
     private void Select(PlayerSelectableObject selectableObject)
     {
-        if (selectableObject.GetSelectionCircle() == null)
-        {
-            selectableObject.SetSelectionCircle(Object.Instantiate(selectionCirclePrefab));
-            selectableObject.GetSelectionCircle().transform.SetParent(selectableObject.GetGameObject().transform, false);
-            selectableObject.GetSelectionCircle().transform.eulerAngles = new Vector3(90, 0, 0);
-            selectableObject.GetSelectionCircle().GetComponent<Projector>().orthographicSize = selectableObject.GetOrthographicSizeForSelectionCircle();
-        }
+        selectableObject.CreateSelectionCircle(selectionCirclePrefab);
     }
 
     private void Deselect(PlayerSelectableObject selectableObject)
     {
-        if (selectableObject.GetSelectionCircle() != null)
-        {
-            Object.Destroy(selectableObject.GetSelectionCircle().gameObject);
-            selectableObject.SetSelectionCircle(null);
-        }
+        selectableObject.DestroySelectionCircle();
     }
 
     public bool IsWithinSelectionBounds(GameObject gameObject)

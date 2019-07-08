@@ -108,6 +108,8 @@ public class PlacementController
                 int sacrificedBlood = 0;
                 foreach (SacrificableSelectableObject sacrificable in sacrificableSelectableObjects)
                 {
+                    sacrificable.Select(false);
+                    sacrificable.DestroySelectionCircle();
                     if (sacrificedBlood < activeManager.GetBuildCosts())
                     {
                         sacrificable.Sacrifice();
