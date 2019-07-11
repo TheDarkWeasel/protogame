@@ -34,7 +34,10 @@ public class GameController : MonoBehaviour
 
         Camera.main.gameObject.AddComponent<PCCameraController>();
 
-        PlayerResources.GetInstance().RegisterListener(GameObject.Find("HUD").GetComponent<BloodCounterHUD>());
+        GameObject hud = GameObject.Find("HUD");
+
+        PlayerResources.GetInstance().RegisterListener(hud.GetComponent<BloodCounterHUD>());
+        selectionController.RegisterBuildChoiceChangeListener(hud.GetComponent<ActionsMenuHUD>());
     }
 
 

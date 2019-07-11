@@ -154,4 +154,15 @@ public abstract class Building : PlayerSelectableObject
             GetSelectionCircle().GetComponent<Projector>().orthographicSize = GetOrthographicSizeForSelectionCircle();
         }
     }
+
+    public int GetSelectionPriority()
+    {
+        return 0;
+    }
+
+    public List<BuildChoice> GetBuildChoices()
+    {
+        //TODO
+        throw new System.NotImplementedException();
+    }
 }

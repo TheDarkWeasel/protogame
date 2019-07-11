@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
-using System.Collections;
+using System.Collections.Generic;
 
 public interface PlayerSelectableObject
 {
@@ -8,6 +8,17 @@ public interface PlayerSelectableObject
      * **/
     void Select(bool selected);
     bool IsSelected();
+
+    /**
+     * Returns the priority of the selected unit for being displayed in the HUD as "main"-selection.
+     * The lower the number, the higher the priority.
+     */
+    int GetSelectionPriority();
+
+    /**
+     * Returns the build-actions to be displayed in the action-ui
+     */
+    List<BuildChoice> GetBuildChoices();
 
     void Update();
 

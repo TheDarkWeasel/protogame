@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
-using System.Linq;
 
 /**
   * Contains parts from: https://hyunkell.com/blog/rts-style-unit-selection-in-unity-5/ written by Jeff Zimmer
@@ -16,13 +15,26 @@ public class SelectionController
 
     private RaycastHit hitInfo;
 
-    public GameObject selectionCirclePrefab;
+    private GameObject selectionCirclePrefab;
+
+    private List<IBuildChoiceChangeListener> buildChoiceChangeListeners;
 
     public SelectionController(ContextProvider context)
     {
         this.context = context;
         selectionCirclePrefab = Resources.Load<GameObject>(GameController.GetGlobalTheme().GetSelectionCirclePrefabPath());
         mainCamera = Camera.main;
+        buildChoiceChangeListeners = new List<IBuildChoiceChangeListener>();
+    }
+
+    public void RegisterBuildChoiceChangeListener(IBuildChoiceChangeListener buildChoiceChangeListener)
+    {
+        buildChoiceChangeListeners.Add(buildChoiceChangeListener);
+    }
+
+    public void UnregisterBuildChoiceChangeListener(IBuildChoiceChangeListener buildChoiceChangeListener)
+    {
+        buildChoiceChangeListeners.Remove(buildChoiceChangeListener);
     }
 
     public void Update()
@@ -43,17 +55,28 @@ public class SelectionController
             // If we let go of the left mouse button, end selection
             if (Input.GetMouseButtonUp(0))
             {
+                PlayerSelectableObject mainObjectForHUD = null;
+
                 foreach (var selectableObject in context.GetPlayerObjectPool().GetPlayerSelectableObjects())
                 {
-                    PlayerSelectableObject current = selectableObject;
-                    if (IsWithinSelectionBounds(current.GetGameObject()))
+                    if (IsWithinSelectionBounds(selectableObject.GetGameObject()))
                     {
                         selectableObject.Select(true);
+                        if(mainObjectForHUD == null || selectableObject.GetSelectionPriority() < mainObjectForHUD.GetSelectionPriority())
+                        {
+                            mainObjectForHUD = selectableObject;
+                        }
                     } else
                     {
                         selectableObject.Select(false);
                     }
                 }
+
+                if(mainObjectForHUD != null)
+                {
+                    //TODO display build choices in HUD
+                }
+
                 isSelecting = false;
             }
 

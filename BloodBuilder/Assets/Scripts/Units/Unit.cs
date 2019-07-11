@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
-using System.Collections;
+using System.Collections.Generic;
 
 public abstract class Unit : SacrificableSelectableObject
 {
@@ -110,5 +110,16 @@ public abstract class Unit : SacrificableSelectableObject
             GetSelectionCircle().transform.eulerAngles = new Vector3(90, 0, 0);
             GetSelectionCircle().GetComponent<Projector>().orthographicSize = GetOrthographicSizeForSelectionCircle();
         }
+    }
+
+    public int GetSelectionPriority()
+    {
+        return 1;
+    }
+
+    public List<BuildChoice> GetBuildChoices()
+    {
+        //TODO
+        throw new System.NotImplementedException();
     }
 }
