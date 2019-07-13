@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.EventSystems;
 using System.Collections.Generic;
 
 /**
@@ -39,7 +40,7 @@ public class SelectionController
 
     public void Update()
     {
-        if (isActive)
+        if (isActive && !EventSystem.current.IsPointerOverGameObject())
         {
             // If we press the left mouse button, begin selection and remember the location of the mouse
             if (Input.GetMouseButtonDown(0))
