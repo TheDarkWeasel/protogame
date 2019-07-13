@@ -36,3 +36,5 @@ sysinfo.txt
 *.unitypackage
 BloodBuilder/Assets/Resources/ToonyTinyPeople/
 BloodBuilder/Assets/Resources/ToonyTinyPeople.meta
+BloodBuilder/Assets/Resources/ClosedSource/
+BloodBuilder/Assets/Resources/ClosedSource.meta

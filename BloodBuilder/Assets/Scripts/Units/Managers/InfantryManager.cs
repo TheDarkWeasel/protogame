@@ -12,7 +12,7 @@ public class InfantryManager : UnitManager
     private InfantryManager()
     {
         placementHotkey = GameController.GetHotkeys().GetInfantryBuildHotkey();
-        unitProductionSprite = Resources.Load<Sprite>("Sprites/ActionsMenu/infantry");
+        unitProductionSprite = Resources.Load<Sprite>(GameController.GetGlobalTheme().GetInfantryActionsMenuSpritePath());
     }
 
     public static InfantryManager GetInstance()

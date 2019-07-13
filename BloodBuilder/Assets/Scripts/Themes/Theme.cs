@@ -7,4 +7,6 @@ public interface Theme
     string GetBarracksPrefabPath();
     string GetInfantryPrefabPath();
     string GetSelectionCirclePrefabPath();
+
+    string GetInfantryActionsMenuSpritePath();
 }

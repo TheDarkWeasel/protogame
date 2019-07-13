@@ -8,6 +8,11 @@ public class OpenSourceTheme : Theme
         return "Models/Barracks";
     }
 
+    public string GetInfantryActionsMenuSpritePath()
+    {
+        return "Sprites/ActionsMenu/infantry";
+    }
+
     public string GetInfantryPrefabPath()
     {
         return "Models/Infantry";
