@@ -5,15 +5,14 @@ public class InfantryManager : UnitManager
 {
     private static InfantryManager instance;
     protected KeyCode placementHotkey;
-    private BuildChoice unitProduction;
+    private Sprite unitProductionSprite;
 
     protected List<Unit> builtUnits = new List<Unit>();
 
     private InfantryManager()
     {
         placementHotkey = GameController.GetHotkeys().GetInfantryBuildHotkey();
-        unitProduction = new BuildChoice();
-        unitProduction.menuSprite = Resources.Load<Sprite>("Sprites/ActionsMenu/infantry");
+        unitProductionSprite = Resources.Load<Sprite>("Sprites/ActionsMenu/infantry");
     }
 
     public static InfantryManager GetInstance()
@@ -117,8 +116,8 @@ public class InfantryManager : UnitManager
         unit.Destroy();
     }
 
-    public BuildChoice getUnitProductionAsBuildChoice()
+    public Sprite getUnitProductionSpriteForMenu()
     {
-        return unitProduction;
+        return unitProductionSprite;
     }
 }

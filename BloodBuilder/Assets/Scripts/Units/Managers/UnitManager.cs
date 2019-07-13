@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using System.Collections;
 
 public interface UnitManager : SelectableObjectContainer
 {
@@ -9,5 +8,5 @@ public interface UnitManager : SelectableObjectContainer
     int GetBuildTimeInSeconds();
     void FinishUnitConstruction(Unit unit);
 
-    BuildChoice getUnitProductionAsBuildChoice();
+    Sprite getUnitProductionSpriteForMenu();
 }

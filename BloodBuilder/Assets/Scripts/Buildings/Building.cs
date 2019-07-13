@@ -59,12 +59,11 @@ public abstract class Building : PlayerSelectableObject
 
     protected void ExecuteNextUnitCommand()
     {
-
         if (unitCommandQueue.Count > 0 && unitCommandCoroutine == null)
         {
             Debug.Log("Executing next command");
             UnitCommand next = unitCommandQueue.Dequeue();
-            next.SetOnDoneListener(new OnUnitCommandDone(this));
+            next.onDoneListener = OnUnitCommandDone;
             unitCommandCoroutine = context.GetMonoBehaviour().StartCoroutine(next.Execute());
         }
     }
@@ -74,23 +73,10 @@ public abstract class Building : PlayerSelectableObject
         unitCommandCoroutine = null;
     }
 
-    /**
-     * Why do I need to to write so much code for a simple listener?
-     **/
-    private class OnUnitCommandDone : OnDone
+    void OnUnitCommandDone()
     {
-        private Building parent;
-
-        public OnUnitCommandDone(Building parent)
-        {
-            this.parent = parent;
-        }
-
-        public void run()
-        {
-            parent.ResetCommandCoroutine();
-            parent.ExecuteNextUnitCommand();
-        }
+        ResetCommandCoroutine();
+        ExecuteNextUnitCommand();
     }
 
     public virtual void OnPlaced()

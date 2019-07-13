@@ -3,9 +3,12 @@ using System.Collections;
 
 public abstract class UnitCommand
 {
-    private OnDone onDoneListener= null;
     private Vector3 positionForFinishedUnit = new Vector3();
     private Vector3 assemblyPoint = new Vector3();
+
+    public delegate void OnDone();
+    public OnDone onDoneListener;
+
 
     public UnitCommand(Vector3 positionForFinishedUnit, Vector3 assemblyPoint)
     {
@@ -37,12 +40,7 @@ public abstract class UnitCommand
     {
         if (onDoneListener != null)
         {
-            onDoneListener.run();
+            onDoneListener.Invoke();
         }
-    }
-
-    public void SetOnDoneListener(OnDone onDone)
-    {
-        onDoneListener = onDone;
     }
 }

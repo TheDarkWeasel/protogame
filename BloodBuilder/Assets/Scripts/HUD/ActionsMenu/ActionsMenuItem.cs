@@ -16,12 +16,20 @@ public class ActionsMenuItem : MonoBehaviour
     {
         button.interactable = true;
         iconImage.sprite = buildChoice.menuSprite;
-        //TODO onClickAction
+        if (buildChoice.buildAction != null)
+        {
+            button.onClick.AddListener(buildChoice.buildAction.Execute);
+        }
+        else
+        {
+            button.onClick.RemoveAllListeners();
+        }
     }
 
     public void ClearItem()
     {
         button.interactable = false;
         iconImage.sprite = null;
+        button.onClick.RemoveAllListeners();
     }
 }

@@ -34,7 +34,12 @@ public class PlayerBase : Building
         List<BuildChoice> result = new List<BuildChoice>();
         foreach (UnitManager manager in registeredUnitManagers)
         {
-            result.Add(manager.getUnitProductionAsBuildChoice());
+            BuildChoice choice = new BuildChoice
+            {
+                menuSprite = manager.getUnitProductionSpriteForMenu(),
+                buildAction = new AddUnitBuildAction(new BuildUnitCommand(manager, GetUnitCreationPosition(), GetUnitAssemblyPoint()), this)
+            };
+            result.Add(choice);
         }
         return result;
     }
