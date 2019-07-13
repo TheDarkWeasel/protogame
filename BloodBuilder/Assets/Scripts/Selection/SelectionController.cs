@@ -62,22 +62,20 @@ public class SelectionController
                     if (IsWithinSelectionBounds(selectableObject.GetGameObject()))
                     {
                         selectableObject.Select(true);
-                        if(mainObjectForHUD == null || selectableObject.GetSelectionPriority() < mainObjectForHUD.GetSelectionPriority())
+                        if (mainObjectForHUD == null || selectableObject.GetSelectionPriority() < mainObjectForHUD.GetSelectionPriority())
                         {
                             mainObjectForHUD = selectableObject;
                         }
-                    } else
+                    }
+                    else
                     {
                         selectableObject.Select(false);
                     }
                 }
 
-                if(mainObjectForHUD != null)
+                foreach (IBuildChoiceChangeListener listener in buildChoiceChangeListeners)
                 {
-                    foreach(IBuildChoiceChangeListener listener in buildChoiceChangeListeners)
-                    {
-                        listener.OnBuildChoicesChanged(mainObjectForHUD.GetBuildChoices());
-                    }
+                    listener.OnBuildChoicesChanged(mainObjectForHUD == null ? new List<BuildChoice>() : mainObjectForHUD.GetBuildChoices());
                 }
 
                 isSelecting = false;

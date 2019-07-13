@@ -20,11 +20,22 @@ public class PlayerBase : Building
     public override void Update()
     {
         base.Update();
-        foreach(UnitManager manager in registeredUnitManagers)
+        foreach (UnitManager manager in registeredUnitManagers)
         {
-            if(Input.GetKeyDown(manager.GetBuildHotkey())) {
+            if (Input.GetKeyDown(manager.GetBuildHotkey()))
+            {
                 AddUnitCommand(new BuildUnitCommand(manager, GetUnitCreationPosition(), GetUnitAssemblyPoint()));
             }
         }
+    }
+
+    public override List<BuildChoice> GetBuildChoices()
+    {
+        List<BuildChoice> result = new List<BuildChoice>();
+        foreach (UnitManager manager in registeredUnitManagers)
+        {
+            result.Add(manager.getUnitProductionAsBuildChoice());
+        }
+        return result;
     }
 }

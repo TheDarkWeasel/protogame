@@ -161,9 +161,5 @@ public abstract class Building : PlayerSelectableObject
         return 0;
     }
 
-    public List<BuildChoice> GetBuildChoices()
-    {
-        //TODO
-        return new List<BuildChoice>();
-    }
+    public abstract List<BuildChoice> GetBuildChoices();
 }

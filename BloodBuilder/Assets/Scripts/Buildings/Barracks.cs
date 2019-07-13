@@ -27,4 +27,9 @@ public class Barracks : Building
             }
         }
     }
+
+    public override List<BuildChoice> GetBuildChoices()
+    {
+        return new List<BuildChoice>();
+    }
 }

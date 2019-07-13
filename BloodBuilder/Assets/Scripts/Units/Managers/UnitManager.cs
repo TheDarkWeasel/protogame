@@ -8,4 +8,6 @@ public interface UnitManager : SelectableObjectContainer
     KeyCode GetBuildHotkey();
     int GetBuildTimeInSeconds();
     void FinishUnitConstruction(Unit unit);
+
+    BuildChoice getUnitProductionAsBuildChoice();
 }

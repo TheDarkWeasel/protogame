@@ -1,17 +1,19 @@
 ﻿using UnityEngine;
-using System.Collections;
 using System.Collections.Generic;
 
 public class InfantryManager : UnitManager
 {
     private static InfantryManager instance;
     protected KeyCode placementHotkey;
+    private BuildChoice unitProduction;
 
     protected List<Unit> builtUnits = new List<Unit>();
 
     private InfantryManager()
     {
-        this.placementHotkey = GameController.GetHotkeys().GetInfantryBuildHotkey();
+        placementHotkey = GameController.GetHotkeys().GetInfantryBuildHotkey();
+        unitProduction = new BuildChoice();
+        unitProduction.menuSprite = Resources.Load<Sprite>("Sprites/ActionsMenu/infantry");
     }
 
     public static InfantryManager GetInstance()
@@ -113,5 +115,10 @@ public class InfantryManager : UnitManager
         }
         PlayerResources.GetInstance().DecreaseResource(unit.GetBloodAmount(), PlayerResources.PlayerResource.OVERALL_BLOOD);
         unit.Destroy();
+    }
+
+    public BuildChoice getUnitProductionAsBuildChoice()
+    {
+        return unitProduction;
     }
 }
