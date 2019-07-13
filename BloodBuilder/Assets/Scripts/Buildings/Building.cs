@@ -60,7 +60,8 @@ public abstract class Building : PlayerSelectableObject
     protected void ExecuteNextUnitCommand()
     {
 
-        if(unitCommandQueue.Count > 0 && unitCommandCoroutine == null) {
+        if (unitCommandQueue.Count > 0 && unitCommandCoroutine == null)
+        {
             Debug.Log("Executing next command");
             UnitCommand next = unitCommandQueue.Dequeue();
             next.SetOnDoneListener(new OnUnitCommandDone(this));
@@ -163,6 +164,6 @@ public abstract class Building : PlayerSelectableObject
     public List<BuildChoice> GetBuildChoices()
     {
         //TODO
-        throw new System.NotImplementedException();
+        return new List<BuildChoice>();
     }
 }

@@ -9,7 +9,6 @@ public class BloodCounterHUD : MonoBehaviour, IResourceChangeListener
 
     Animation overallBloodBounce;
 
-    // Use this for initialization
     void Start()
     {
         overallBloodCounter = GameObject.Find("OverallBloodCounter").GetComponent<Text>();

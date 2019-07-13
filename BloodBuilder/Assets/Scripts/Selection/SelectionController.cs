@@ -74,7 +74,10 @@ public class SelectionController
 
                 if(mainObjectForHUD != null)
                 {
-                    //TODO display build choices in HUD
+                    foreach(IBuildChoiceChangeListener listener in buildChoiceChangeListeners)
+                    {
+                        listener.OnBuildChoicesChanged(mainObjectForHUD.GetBuildChoices());
+                    }
                 }
 
                 isSelecting = false;

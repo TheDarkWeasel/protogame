@@ -34,12 +34,19 @@ public class GameController : MonoBehaviour
 
         Camera.main.gameObject.AddComponent<PCCameraController>();
 
-        GameObject hud = GameObject.Find("HUD");
+        GameObject hud = SetupHUD();
 
         PlayerResources.GetInstance().RegisterListener(hud.GetComponent<BloodCounterHUD>());
         selectionController.RegisterBuildChoiceChangeListener(hud.GetComponent<ActionsMenuHUD>());
     }
 
+    private static GameObject SetupHUD()
+    {
+        GameObject hud = GameObject.Find("HUD");
+        hud.AddComponent<BloodCounterHUD>();
+        hud.AddComponent<ActionsMenuHUD>();
+        return hud;
+    }
 
     void Update()
     {

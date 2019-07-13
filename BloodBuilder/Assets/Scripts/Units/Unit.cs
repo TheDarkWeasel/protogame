@@ -120,6 +120,6 @@ public abstract class Unit : SacrificableSelectableObject
     public List<BuildChoice> GetBuildChoices()
     {
         //TODO
-        throw new System.NotImplementedException();
+        return new List<BuildChoice>();
     }
 }
