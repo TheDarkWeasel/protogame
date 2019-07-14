@@ -3,10 +3,12 @@ using UnityEngine;
 
 public class BarracksManager : AbsBuildingManager
 {
+    private Sprite buildingProductionSprite;
 
     public BarracksManager(ContextProvider context) : base(context)
     {
         placementHotkey = GameController.GetHotkeys().GetBuildBarracksHotkey();
+        buildingProductionSprite = Resources.Load<Sprite>(GameController.GetGlobalTheme().GetBarracksActionsMenuSpritePath());
     }
 
 
@@ -20,5 +22,10 @@ public class BarracksManager : AbsBuildingManager
     public override int GetBuildCosts()
     {
         return 3;
+    }
+
+    public override Sprite getUnitProductionSpriteForMenu()
+    {
+        return buildingProductionSprite;
     }
 }

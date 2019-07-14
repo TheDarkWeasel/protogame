@@ -1,7 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.UI;
+﻿using UnityEngine;
 
 public class GameController : MonoBehaviour
 {
@@ -18,21 +15,25 @@ public class GameController : MonoBehaviour
     {
         playerObjectPool = new PlayerObjectPool();
 
-        BuildChoiceManager buildChoiceManager = new BuildChoiceManager();
+        BuildChoiceUpdater buildChoiceManager = new BuildChoiceUpdater();
+        UnitBuildChoiceProvider unitBuildChoiceProvider = new UnitBuildChoiceProvider();
 
-        this.context = new ContextProvider(this, playerObjectPool, buildChoiceManager);
+        InfantryManager infantryManager = new InfantryManager(unitBuildChoiceProvider);
+
+        this.context = new ContextProvider(this, playerObjectPool, buildChoiceManager, infantryManager);
         placementController = new PlacementController(context);
         selectionController = new SelectionController(context);
 
         BuildingManager playerBaseManager = new PlayerBaseManager(context);
         placementController.RegisterBuildingManager(playerBaseManager);
         playerObjectPool.RegisterSelectableObjectContainer(playerBaseManager);
+        unitBuildChoiceProvider.RegisterBloodBuildable(playerBaseManager);
 
         BuildingManager barracksManager = new BarracksManager(context);
         placementController.RegisterBuildingManager(barracksManager);
         playerObjectPool.RegisterSelectableObjectContainer(barracksManager);
+        unitBuildChoiceProvider.RegisterBloodBuildable(barracksManager);
 
-        InfantryManager infantryManager = InfantryManager.GetInstance();
         playerObjectPool.RegisterSelectableObjectContainer(infantryManager);
 
         Camera.main.gameObject.AddComponent<PCCameraController>();
@@ -40,6 +41,8 @@ public class GameController : MonoBehaviour
         GameObject hud = SetupHUD();
 
         PlayerResources.GetInstance().RegisterListener(hud.GetComponent<BloodCounterHUD>());
+        PlayerResources.GetInstance().RegisterListener(buildChoiceManager);
+
         buildChoiceManager.RegisterBuildChoiceChangeListener(hud.GetComponent<ActionsMenuHUD>());
     }
 
@@ -68,11 +71,11 @@ public class GameController : MonoBehaviour
             selectionController.Update();
         }
 
-        if(playerObjectPool != null)
+        if (playerObjectPool != null)
         {
             //TODO I don't know, if this will be the final way of triggering the unit building process.
             //It does not feel right and looks inperfomant. Very likely to be changed. But for now it should work.
-            foreach(PlayerSelectableObject playerSelectableObject in playerObjectPool.GetSelectedObjects())
+            foreach (PlayerSelectableObject playerSelectableObject in playerObjectPool.GetSelectedObjects())
             {
                 playerSelectableObject.Update();
             }

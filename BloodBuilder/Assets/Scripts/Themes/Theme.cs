@@ -9,4 +9,6 @@ public interface Theme
     string GetSelectionCirclePrefabPath();
 
     string GetInfantryActionsMenuSpritePath();
+    string GetPlayerBaseActionsMenuSpritePath();
+    string GetBarracksActionsMenuSpritePath();
 }

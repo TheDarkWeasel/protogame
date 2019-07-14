@@ -8,10 +8,12 @@ public abstract class Unit : SacrificableSelectableObject
     protected GameObject selectionCircle;
     protected bool selected = false;
     protected UnitManager parentManager;
+    protected UnitBuildChoiceProvider unitBuildChoiceProvider;
 
-    public Unit(UnitManager parentManager)
+    public Unit(UnitManager parentManager, UnitBuildChoiceProvider unitBuildChoiceProvider)
     {
         this.parentManager = parentManager;
+        this.unitBuildChoiceProvider = unitBuildChoiceProvider;
     }
 
     public void CreatePlacebleModel()
@@ -119,7 +121,6 @@ public abstract class Unit : SacrificableSelectableObject
 
     public List<BuildChoice> GetBuildChoices()
     {
-        //TODO
-        return new List<BuildChoice>();
+        return unitBuildChoiceProvider.GetBuildChoicesForSelectedBlood();
     }
 }

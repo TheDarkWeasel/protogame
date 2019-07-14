@@ -14,7 +14,7 @@ public class ActionsMenuItem : MonoBehaviour
 
     public void AddBuildChoice(BuildChoice buildChoice)
     {
-        button.interactable = true;
+        button.interactable = buildChoice.canCurrentlyBeBuild;
         iconImage.sprite = buildChoice.menuSprite;
         if (buildChoice.buildAction != null)
         {

@@ -70,4 +70,5 @@ public abstract class AbsBuildingManager : BuildingManager
     }
 
     public abstract int GetBuildCosts();
+    public abstract Sprite getUnitProductionSpriteForMenu();
 }

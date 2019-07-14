@@ -9,7 +9,7 @@ public class PlayerBase : Building
     public PlayerBase(ContextProvider context) : base(context)
     {
         prefabPath = GameController.GetGlobalTheme().GetPlayerBasePrefabPath();
-        registeredUnitManagers.Add(InfantryManager.GetInstance());
+        registeredUnitManagers.Add(context.GetInfantryManager());
     }
 
     public override void OnPlaced()
@@ -37,7 +37,8 @@ public class PlayerBase : Building
             BuildChoice choice = new BuildChoice
             {
                 menuSprite = manager.getUnitProductionSpriteForMenu(),
-                buildAction = new AddUnitBuildAction(new BuildUnitCommand(manager, GetUnitCreationPosition(), GetUnitAssemblyPoint()), this)
+                buildAction = new AddUnitBuildAction(new BuildUnitCommand(manager, GetUnitCreationPosition(), GetUnitAssemblyPoint()), this),
+                canCurrentlyBeBuild = true
             };
             result.Add(choice);
         }

@@ -5,13 +5,15 @@ public class ContextProvider
 
     private MonoBehaviour behaviour;
     private PlayerObjectPool playerObjectPool;
-    private BuildChoiceManager buildChoiceManager;
+    private BuildChoiceUpdater buildChoiceUpdater;
+    private InfantryManager infantryManager;
 
-    public ContextProvider(MonoBehaviour behaviour, PlayerObjectPool playerObjectPool, BuildChoiceManager buildChoiceManager)
+    public ContextProvider(MonoBehaviour behaviour, PlayerObjectPool playerObjectPool, BuildChoiceUpdater buildChoiceUpdater, InfantryManager infantryManager)
     {
         this.behaviour = behaviour;
         this.playerObjectPool = playerObjectPool;
-        this.buildChoiceManager = buildChoiceManager;
+        this.buildChoiceUpdater = buildChoiceUpdater;
+        this.infantryManager = infantryManager;
     }
 
     public MonoBehaviour GetMonoBehaviour()
@@ -24,8 +26,13 @@ public class ContextProvider
         return playerObjectPool;
     }
 
-    public BuildChoiceManager GetBuildChoiceManager()
+    public BuildChoiceUpdater GetBuildChoiceManager()
     {
-        return buildChoiceManager;
+        return buildChoiceUpdater;
+    }
+
+    public InfantryManager GetInfantryManager()
+    {
+        return infantryManager;
     }
 }

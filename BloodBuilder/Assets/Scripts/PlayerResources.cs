@@ -17,12 +17,25 @@ public class PlayerResources
 
     public static PlayerResources GetInstance()
     {
-        if(instance == null)
+        if (instance == null)
         {
             instance = new PlayerResources();
         }
 
         return instance;
+    }
+
+    public int GetResourceCount(PlayerResource resourceType)
+    {
+        switch (resourceType)
+        {
+            case PlayerResource.OVERALL_BLOOD:
+                return overallBlood;
+            case PlayerResource.SELECTED_BLOOD:
+                return selectedBlood;
+            default:
+                throw new NotYetImplementedException("Resource type not implemented");
+        }
     }
 
     public void RegisterListener(IResourceChangeListener resourceChangeListener)
@@ -40,7 +53,7 @@ public class PlayerResources
     public void IncreaseResource(int amount, PlayerResource type)
     {
         int newAmount = 0;
-        switch(type)
+        switch (type)
         {
             case PlayerResource.OVERALL_BLOOD:
                 newAmount = overallBlood += amount;
@@ -52,7 +65,7 @@ public class PlayerResources
                 throw new NotYetImplementedException("Resource type not implemented");
         }
 
-        foreach(IResourceChangeListener listener in resourceChangeListeners)
+        foreach (IResourceChangeListener listener in resourceChangeListeners)
         {
             listener.OnResourceChange(type, newAmount);
         }

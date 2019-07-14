@@ -4,7 +4,7 @@ using System;
 
 public class Infantry : Unit
 {
-    public Infantry(InfantryManager infantryManager) : base(infantryManager)
+    public Infantry(InfantryManager infantryManager, UnitBuildChoiceProvider unitBuildChoiceProvider) : base(infantryManager, unitBuildChoiceProvider)
     {
         prefabPath = GameController.GetGlobalTheme().GetInfantryPrefabPath();
     }

@@ -3,31 +3,22 @@ using System.Collections.Generic;
 
 public class InfantryManager : UnitManager
 {
-    private static InfantryManager instance;
     protected KeyCode placementHotkey;
     private Sprite unitProductionSprite;
+    private UnitBuildChoiceProvider unitBuildChoiceProvider;
 
     protected List<Unit> builtUnits = new List<Unit>();
 
-    private InfantryManager()
+    public InfantryManager(UnitBuildChoiceProvider unitBuildChoiceProvider)
     {
         placementHotkey = GameController.GetHotkeys().GetInfantryBuildHotkey();
         unitProductionSprite = Resources.Load<Sprite>(GameController.GetGlobalTheme().GetInfantryActionsMenuSpritePath());
-    }
-
-    public static InfantryManager GetInstance()
-    {
-        if(instance == null)
-        {
-            instance = new InfantryManager();
-        }
-
-        return instance;
+        this.unitBuildChoiceProvider = unitBuildChoiceProvider;
     }
 
     public Unit CreateUnit()
     {
-        Infantry infantry = new Infantry(this);
+        Infantry infantry = new Infantry(this, unitBuildChoiceProvider);
         infantry.CreatePlacebleModel();
         return infantry;
     }

@@ -1,12 +1,12 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 
-public class BuildChoiceManager : IResourceChangeListener
+public class BuildChoiceUpdater : IResourceChangeListener
 {
     private List<IBuildChoiceChangeListener> buildChoiceChangeListeners;
     private PlayerSelectableObject mainObjectForHUD = null;
 
-    public BuildChoiceManager()
+    public BuildChoiceUpdater()
     {
         buildChoiceChangeListeners = new List<IBuildChoiceChangeListener>();
     }
@@ -20,7 +20,6 @@ public class BuildChoiceManager : IResourceChangeListener
     {
         buildChoiceChangeListeners.Remove(buildChoiceChangeListener);
     }
-
 
     public void SetMainObjectForHud(PlayerSelectableObject playerSelectableObject)
     {
