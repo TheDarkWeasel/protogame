@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
 using UnityEngine.EventSystems;
-using System.Collections.Generic;
 
 /**
   * Contains parts from: https://hyunkell.com/blog/rts-style-unit-selection-in-unity-5/ written by Jeff Zimmer
@@ -18,24 +17,11 @@ public class SelectionController
 
     private GameObject selectionCirclePrefab;
 
-    private List<IBuildChoiceChangeListener> buildChoiceChangeListeners;
-
     public SelectionController(ContextProvider context)
     {
         this.context = context;
         selectionCirclePrefab = Resources.Load<GameObject>(GameController.GetGlobalTheme().GetSelectionCirclePrefabPath());
         mainCamera = Camera.main;
-        buildChoiceChangeListeners = new List<IBuildChoiceChangeListener>();
-    }
-
-    public void RegisterBuildChoiceChangeListener(IBuildChoiceChangeListener buildChoiceChangeListener)
-    {
-        buildChoiceChangeListeners.Add(buildChoiceChangeListener);
-    }
-
-    public void UnregisterBuildChoiceChangeListener(IBuildChoiceChangeListener buildChoiceChangeListener)
-    {
-        buildChoiceChangeListeners.Remove(buildChoiceChangeListener);
     }
 
     public void Update()
@@ -74,10 +60,7 @@ public class SelectionController
                     }
                 }
 
-                foreach (IBuildChoiceChangeListener listener in buildChoiceChangeListeners)
-                {
-                    listener.OnBuildChoicesChanged(mainObjectForHUD == null ? new List<BuildChoice>() : mainObjectForHUD.GetBuildChoices());
-                }
+                context.GetBuildChoiceManager().SetMainObjectForHud(mainObjectForHUD);
 
                 isSelecting = false;
             }

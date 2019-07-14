@@ -17,7 +17,10 @@ public class GameController : MonoBehaviour
     void Start()
     {
         playerObjectPool = new PlayerObjectPool();
-        this.context = new ContextProvider(this, playerObjectPool);
+
+        BuildChoiceManager buildChoiceManager = new BuildChoiceManager();
+
+        this.context = new ContextProvider(this, playerObjectPool, buildChoiceManager);
         placementController = new PlacementController(context);
         selectionController = new SelectionController(context);
 
@@ -37,7 +40,7 @@ public class GameController : MonoBehaviour
         GameObject hud = SetupHUD();
 
         PlayerResources.GetInstance().RegisterListener(hud.GetComponent<BloodCounterHUD>());
-        selectionController.RegisterBuildChoiceChangeListener(hud.GetComponent<ActionsMenuHUD>());
+        buildChoiceManager.RegisterBuildChoiceChangeListener(hud.GetComponent<ActionsMenuHUD>());
     }
 
     private static GameObject SetupHUD()
