@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.EventSystems;
 using System.Collections.Generic;
 
 public class PlacementController
@@ -12,10 +13,10 @@ public class PlacementController
 
     private Camera mainCamera;
 
-    public PlacementController(ContextProvider contextProvider)
+    public PlacementController(PlayerObjectPool playerObjectPool)
     {
         buildingManagers = new List<BuildingManager>();
-        this.playerObjectPool = contextProvider.GetPlayerObjectPool();
+        this.playerObjectPool = playerObjectPool;
         mainCamera = Camera.main;
     }
 
@@ -31,11 +32,11 @@ public class PlacementController
 
     public void Update()
     {
-        bool newBuilding = HandleNewObjectHotkey();
+        HandleNewObjectHotkey();
 
         if (buildingToPlace != null)
         {
-            MoveCurrentObjectToMouse(newBuilding);
+            MoveCurrentObjectToMouse(false);
             ReleaseIfClicked();
         }
     }
@@ -48,34 +49,40 @@ public class PlacementController
     /**
      * Returns true, if a new building was created
      */
-    private bool HandleNewObjectHotkey()
+    private void HandleNewObjectHotkey()
     {
         foreach (BuildingManager manager in buildingManagers)
         {
             if (Input.GetKeyDown(manager.GetPlacementHotkey()))
             {
-                //TODO check efficiency
-                if (manager.GetBuildCosts() <= playerObjectPool.GetBloodAmountOfObjects(playerObjectPool.GetSacrificableSelectedObjects()))
+                if (buildingToPlace == null)
                 {
-                    if (buildingToPlace == null)
-                    {
-                        buildingToPlace = manager.CreateBuilding();
-                        activeManager = manager;
-                        return true;
-                    }
-                    else
-                    {
-                        manager.ReleaseBuilding(buildingToPlace);
-                        activeManager = null;
-                        buildingToPlace = null;
-                    }
+                    BuildBuilding(manager);
+                }
+                else
+                {
+                    manager.ReleaseBuilding(buildingToPlace);
+                    activeManager = null;
+                    buildingToPlace = null;
                 }
                 //Duplicate keycodes are not supported
                 break;
             }
         }
+    }
 
-        return false;
+    public void BuildBuilding(BuildingManager manager)
+    {
+        if (manager.GetBuildCosts() <= PlayerResources.GetInstance().GetResourceCount(PlayerResources.PlayerResource.SELECTED_BLOOD))
+        {
+            if (buildingToPlace != null)
+            {
+                activeManager.ReleaseBuilding(buildingToPlace);
+            }
+            buildingToPlace = manager.CreateBuilding();
+            activeManager = manager;
+            MoveCurrentObjectToMouse(true);
+        }
     }
 
     private void MoveCurrentObjectToMouse(bool forceMove)
@@ -99,11 +106,16 @@ public class PlacementController
 
     private void ReleaseIfClicked()
     {
+        if (EventSystem.current.IsPointerOverGameObject())
+        {
+            return;
+        }
         if (Input.GetMouseButtonUp(0))
         {
+            //Build building
             //TODO check efficiency
             List<SacrificableSelectableObject> sacrificableSelectableObjects = playerObjectPool.GetSacrificableSelectedObjects();
-            if (activeManager.GetBuildCosts() <= playerObjectPool.GetBloodAmountOfObjects(sacrificableSelectableObjects))
+            if (activeManager.GetBuildCosts() <= PlayerResources.GetInstance().GetResourceCount(PlayerResources.PlayerResource.SELECTED_BLOOD))
             {
                 int sacrificedBlood = 0;
                 foreach (SacrificableSelectableObject sacrificable in sacrificableSelectableObjects)
@@ -120,6 +132,13 @@ public class PlacementController
                 activeManager = null;
                 buildingToPlace = null;
             }
+        }
+        else if (Input.GetMouseButtonUp(1))
+        {
+            //Cancel building
+            activeManager.ReleaseBuilding(buildingToPlace);
+            activeManager = null;
+            buildingToPlace = null;
         }
     }
 }

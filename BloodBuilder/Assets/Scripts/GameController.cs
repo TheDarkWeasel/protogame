@@ -9,19 +9,20 @@ public class GameController : MonoBehaviour
     private SelectionController selectionController;
     private PlayerObjectPool playerObjectPool;
 
-    private ContextProvider context;
-
     void Start()
     {
+        ContextProvider context;
+
         playerObjectPool = new PlayerObjectPool();
+        placementController = new PlacementController(playerObjectPool);
 
         BuildChoiceUpdater buildChoiceManager = new BuildChoiceUpdater();
-        UnitBuildChoiceProvider unitBuildChoiceProvider = new UnitBuildChoiceProvider();
 
+        UnitBuildChoiceProvider unitBuildChoiceProvider = new UnitBuildChoiceProvider(placementController);
         InfantryManager infantryManager = new InfantryManager(unitBuildChoiceProvider);
 
-        this.context = new ContextProvider(this, playerObjectPool, buildChoiceManager, infantryManager);
-        placementController = new PlacementController(context);
+        context = new ContextProvider(this, playerObjectPool, buildChoiceManager, infantryManager);
+
         selectionController = new SelectionController(context);
 
         BuildingManager playerBaseManager = new PlayerBaseManager(context);

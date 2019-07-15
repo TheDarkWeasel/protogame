@@ -19,12 +19,17 @@ public class BarracksManager : AbsBuildingManager
         return barracks;
     }
 
+    public override IBuildAction GetBuildAction(PlacementController placementController)
+    {
+        return new BuildBuildingAction(placementController, this);
+    }
+
     public override int GetBuildCosts()
     {
         return 3;
     }
 
-    public override Sprite getUnitProductionSpriteForMenu()
+    public override Sprite GetUnitProductionSpriteForMenu()
     {
         return buildingProductionSprite;
     }

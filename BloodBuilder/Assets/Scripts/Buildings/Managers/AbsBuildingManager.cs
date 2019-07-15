@@ -70,5 +70,6 @@ public abstract class AbsBuildingManager : BuildingManager
     }
 
     public abstract int GetBuildCosts();
-    public abstract Sprite getUnitProductionSpriteForMenu();
+    public abstract Sprite GetUnitProductionSpriteForMenu();
+    public abstract IBuildAction GetBuildAction(PlacementController placementController);
 }

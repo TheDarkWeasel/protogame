@@ -19,13 +19,18 @@ public class PlayerBaseManager : AbsBuildingManager
         return playerBase;
     }
 
+    public override IBuildAction GetBuildAction(PlacementController placementController)
+    {
+        return new BuildBuildingAction(placementController, this);
+    }
+
     public override int GetBuildCosts()
     {
         //For now ;)
         return 0;
     }
 
-    public override Sprite getUnitProductionSpriteForMenu()
+    public override Sprite GetUnitProductionSpriteForMenu()
     {
         return buildingProductionSprite;
     }

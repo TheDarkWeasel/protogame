@@ -3,10 +3,12 @@
 public class UnitBuildChoiceProvider
 {
     private List<IBuildableByBlood> bloodBuildables;
+    private PlacementController placementController;
 
-    public UnitBuildChoiceProvider()
+    public UnitBuildChoiceProvider(PlacementController placementController)
     {
         bloodBuildables = new List<IBuildableByBlood>();
+        this.placementController = placementController;
     }
 
     public void RegisterBloodBuildable(IBuildableByBlood buildableByBlood)
@@ -26,8 +28,8 @@ public class UnitBuildChoiceProvider
         {
             BuildChoice choice = new BuildChoice
             {
-                menuSprite = buildableByBlood.getUnitProductionSpriteForMenu(),
-                //TODO buildAction
+                menuSprite = buildableByBlood.GetUnitProductionSpriteForMenu(),
+                buildAction = buildableByBlood.GetBuildAction(placementController),
                 canCurrentlyBeBuild = PlayerResources.GetInstance().GetResourceCount(PlayerResources.PlayerResource.SELECTED_BLOOD) >= buildableByBlood.GetBuildCosts()
             };
             result.Add(choice);
