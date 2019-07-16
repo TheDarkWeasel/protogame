@@ -6,10 +6,14 @@ public class ActionsMenuItem : MonoBehaviour
     Button button;
     Image iconImage;
 
+    Sprite clearSprite;
+
     void Start()
     {
         button = GetComponent<Button>();
         iconImage = transform.Find("Icon").GetComponent<Image>();
+        clearSprite = Resources.Load<Sprite>("Sprites/ActionsMenu/transparent");
+        button.interactable = false;
     }
 
     public void AddBuildChoice(BuildChoice buildChoice)
@@ -29,7 +33,7 @@ public class ActionsMenuItem : MonoBehaviour
     public void ClearItem()
     {
         button.interactable = false;
-        iconImage.sprite = null;
+        iconImage.sprite = clearSprite;
         button.onClick.RemoveAllListeners();
     }
 }

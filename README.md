@@ -13,6 +13,7 @@ These rules force the player to consider whether it is worth building a new buil
   - Buildings and Units are selectable
   - Units are put in a build queue by pressing 'I' and are then produced after a specific time
   - Barracks can now be built by sacrificing 3 units
+  - UI! Build buildings and units via the actions menu on the bottom right of the screen!
 
 # What is not working
   - Everything else
