@@ -7,6 +7,8 @@ public class InfantryManager : UnitManager
     private Sprite unitProductionSprite;
     private UnitBuildChoiceProvider unitBuildChoiceProvider;
 
+    private ObjectPool<Unit> infantryPool;
+
     protected List<Unit> builtUnits = new List<Unit>();
 
     public InfantryManager(UnitBuildChoiceProvider unitBuildChoiceProvider)
@@ -14,13 +16,34 @@ public class InfantryManager : UnitManager
         placementHotkey = GameController.GetHotkeys().GetInfantryBuildHotkey();
         unitProductionSprite = Resources.Load<Sprite>(GameController.GetGlobalTheme().GetInfantryActionsMenuSpritePath());
         this.unitBuildChoiceProvider = unitBuildChoiceProvider;
+        this.infantryPool = new ObjectPool<Unit>(() => InternalCreateUnit(), (i) => InternalActivateUnit(i), (i) => InternalDeactivateUnit(i));
     }
 
-    public Unit CreateUnit()
+    private Unit InternalCreateUnit()
     {
         Infantry infantry = new Infantry(this, unitBuildChoiceProvider);
         infantry.CreatePlacebleModel();
         return infantry;
+    }
+
+    private void InternalDeactivateUnit(Unit infantry)
+    {
+        infantry.GetGameObject().SetActive(false);
+        infantry.DestroySelectionCircle();
+        infantry.ParentManager = null;
+        infantry.UnitBuildChoiceProvider = null;
+    }
+
+    private void InternalActivateUnit(Unit infantry)
+    {
+        infantry.ParentManager = this;
+        infantry.UnitBuildChoiceProvider = unitBuildChoiceProvider;
+        infantry.GetGameObject().SetActive(true);
+    }
+
+    public Unit CreateUnit()
+    {
+        return infantryPool.GetObject();
     }
 
     public void FinishUnitConstruction(Unit unit)
@@ -104,7 +127,7 @@ public class InfantryManager : UnitManager
             builtUnits.Remove(unit);
         }
         PlayerResources.GetInstance().DecreaseResource(unit.GetBloodAmount(), PlayerResources.PlayerResource.OVERALL_BLOOD);
-        unit.Destroy();
+        infantryPool.PutObject(unit);
     }
 
     public Sprite getUnitProductionSpriteForMenu()

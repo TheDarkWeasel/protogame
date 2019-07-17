@@ -38,6 +38,8 @@ public class SelectionController
                 {
                     Deselect(selectableObject);
                 }
+
+                context.GetBuildChoiceManager().SetMainObjectForHud(null);
             }
             // If we let go of the left mouse button, end selection
             if (Input.GetMouseButtonUp(0))

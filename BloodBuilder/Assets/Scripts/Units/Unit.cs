@@ -10,6 +10,9 @@ public abstract class Unit : SacrificableSelectableObject
     protected UnitManager parentManager;
     protected UnitBuildChoiceProvider unitBuildChoiceProvider;
 
+    public UnitManager ParentManager { get => parentManager; set => parentManager = value; }
+    public UnitBuildChoiceProvider UnitBuildChoiceProvider { get => unitBuildChoiceProvider; set => unitBuildChoiceProvider = value; }
+
     public Unit(UnitManager parentManager, UnitBuildChoiceProvider unitBuildChoiceProvider)
     {
         this.parentManager = parentManager;
@@ -91,7 +94,6 @@ public abstract class Unit : SacrificableSelectableObject
     public void Sacrifice()
     {
         parentManager.ReleaseUnit(this);
-        parentManager = null;
     }
 
     public void DestroySelectionCircle()
@@ -121,6 +123,9 @@ public abstract class Unit : SacrificableSelectableObject
 
     public List<BuildChoice> GetBuildChoices()
     {
+        if (!GetGameObject().activeSelf)
+            return new List<BuildChoice>();
+
         return unitBuildChoiceProvider.GetBuildChoicesForSelectedBlood();
     }
 }
