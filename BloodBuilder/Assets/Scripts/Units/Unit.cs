@@ -118,14 +118,11 @@ public abstract class Unit : SacrificableSelectableObject
 
     public int GetSelectionPriority()
     {
-        return 1;
+        return 0;
     }
 
     public List<BuildChoice> GetBuildChoices()
     {
-        if (!GetGameObject().activeSelf)
-            return new List<BuildChoice>();
-
         return unitBuildChoiceProvider.GetBuildChoicesForSelectedBlood();
     }
 }

@@ -6,14 +6,36 @@ public abstract class AbsBuildingManager : BuildingManager
     protected KeyCode placementHotkey;
     protected ContextProvider context;
 
+    private ObjectPool<Building> buildingPool;
+
     protected List<Building> placedBuildings = new List<Building>();
 
     public AbsBuildingManager(ContextProvider context)
     {
         this.context = context;
+        this.buildingPool = new ObjectPool<Building>(() => InternalCreateBuilding(), (b) => InternalActivateBuilding(b), (b) => InternalDeactivateBuilding(b));
     }
 
-    public abstract Building CreateBuilding();
+    public Building CreateBuilding()
+    {
+        return buildingPool.GetObject();
+    }
+
+    private void InternalDeactivateBuilding(Building building)
+    {
+        building.GetGameObject().SetActive(false);
+        building.DestroySelectionCircle();
+        building.StopProductionQueue();
+        building.Context = null;
+    }
+
+    private void InternalActivateBuilding(Building building)
+    {
+        building.Context = context;
+        building.GetGameObject().SetActive(true);
+    }
+
+    protected abstract Building InternalCreateBuilding();
 
     public void ReleaseBuilding(Building building)
     {
@@ -21,7 +43,7 @@ public abstract class AbsBuildingManager : BuildingManager
         {
             placedBuildings.Remove(building);
         }
-        building.Destroy();
+        buildingPool.PutObject(building);
     }
 
     public void PlaceBuilding(Building building)

@@ -12,7 +12,7 @@ public class PlayerBaseManager : AbsBuildingManager
     }
 
 
-    public override Building CreateBuilding()
+    protected override Building InternalCreateBuilding()
     {
         PlayerBase playerBase = new PlayerBase(context);
         playerBase.CreatePlacebleModel();

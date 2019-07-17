@@ -14,14 +14,15 @@ public class GameController : MonoBehaviour
         ContextProvider context;
 
         playerObjectPool = new PlayerObjectPool();
-        placementController = new PlacementController(playerObjectPool);
 
-        BuildChoiceUpdater buildChoiceManager = new BuildChoiceUpdater();
+        BuildChoiceUpdater buildChoiceUpdater = new BuildChoiceUpdater();
+
+        placementController = new PlacementController(playerObjectPool, buildChoiceUpdater);
 
         UnitBuildChoiceProvider unitBuildChoiceProvider = new UnitBuildChoiceProvider(placementController);
         InfantryManager infantryManager = new InfantryManager(unitBuildChoiceProvider);
 
-        context = new ContextProvider(this, playerObjectPool, buildChoiceManager, infantryManager);
+        context = new ContextProvider(this, playerObjectPool, buildChoiceUpdater, infantryManager);
 
         selectionController = new SelectionController(context);
 
@@ -42,9 +43,9 @@ public class GameController : MonoBehaviour
         GameObject hud = SetupHUD();
 
         PlayerResources.GetInstance().RegisterListener(hud.GetComponent<BloodCounterHUD>());
-        PlayerResources.GetInstance().RegisterListener(buildChoiceManager);
+        PlayerResources.GetInstance().RegisterListener(buildChoiceUpdater);
 
-        buildChoiceManager.RegisterBuildChoiceChangeListener(hud.GetComponent<ActionsMenuHUD>());
+        buildChoiceUpdater.RegisterBuildChoiceChangeListener(hud.GetComponent<ActionsMenuHUD>());
     }
 
     private static GameObject SetupHUD()
@@ -68,8 +69,8 @@ public class GameController : MonoBehaviour
         if (selectionController != null)
         {
             //Selection is only allowed, if the player is not building something
-            selectionController.SetActive(!placementControllerActive);
             selectionController.Update();
+            selectionController.SetActive(!placementControllerActive);
         }
 
         if (playerObjectPool != null)

@@ -12,7 +12,7 @@ public class BarracksManager : AbsBuildingManager
     }
 
 
-    public override Building CreateBuilding()
+    protected override Building InternalCreateBuilding()
     {
         Barracks barracks = new Barracks(context);
         barracks.CreatePlacebleModel();

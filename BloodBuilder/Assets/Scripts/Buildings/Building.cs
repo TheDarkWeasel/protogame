@@ -8,10 +8,13 @@ public abstract class Building : PlayerSelectableObject
     protected string prefabPath;
     protected GameObject instantiatedObject;
     protected Queue<UnitCommand> unitCommandQueue = new Queue<UnitCommand>();
+    private readonly object coroutineLock = new object();
     protected Coroutine unitCommandCoroutine;
-    protected ContextProvider context;
+    private ContextProvider context;
     protected GameObject selectionCircle;
     protected bool selected = false;
+
+    public ContextProvider Context { get => context; set => context = value; }
 
     public Building(ContextProvider context)
     {
@@ -59,18 +62,36 @@ public abstract class Building : PlayerSelectableObject
 
     protected void ExecuteNextUnitCommand()
     {
-        if (unitCommandQueue.Count > 0 && unitCommandCoroutine == null)
+        lock (coroutineLock)
         {
-            Debug.Log("Executing next command");
-            UnitCommand next = unitCommandQueue.Dequeue();
-            next.onDoneListener = OnUnitCommandDone;
-            unitCommandCoroutine = context.GetMonoBehaviour().StartCoroutine(next.Execute());
+            if (unitCommandQueue.Count > 0 && unitCommandCoroutine == null)
+            {
+                Debug.Log("Executing next command");
+                UnitCommand next = unitCommandQueue.Dequeue();
+                next.onDoneListener = OnUnitCommandDone;
+                unitCommandCoroutine = context.GetMonoBehaviour().StartCoroutine(next.Execute());
+            }
+        }
+    }
+
+    public void StopProductionQueue()
+    {
+        lock (coroutineLock)
+        {
+            if (unitCommandCoroutine != null)
+            {
+                context.GetMonoBehaviour().StopCoroutine(unitCommandCoroutine);
+                unitCommandCoroutine = null;
+            }
         }
     }
 
     void ResetCommandCoroutine()
     {
-        unitCommandCoroutine = null;
+        lock (coroutineLock)
+        {
+            unitCommandCoroutine = null;
+        }
     }
 
     void OnUnitCommandDone()
@@ -144,7 +165,7 @@ public abstract class Building : PlayerSelectableObject
 
     public int GetSelectionPriority()
     {
-        return 0;
+        return 1;
     }
 
     public abstract List<BuildChoice> GetBuildChoices();

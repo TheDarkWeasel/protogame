@@ -8,15 +8,17 @@ public class PlacementController
     private Building buildingToPlace;
     private Vector3 specificVector = new Vector3();
     private PlayerObjectPool playerObjectPool;
+    private BuildChoiceUpdater buildChoiceUpdater;
     private BuildingManager activeManager;
     private RaycastHit hitInfo;
 
     private Camera mainCamera;
 
-    public PlacementController(PlayerObjectPool playerObjectPool)
+    public PlacementController(PlayerObjectPool playerObjectPool, BuildChoiceUpdater buildChoiceUpdater)
     {
         buildingManagers = new List<BuildingManager>();
         this.playerObjectPool = playerObjectPool;
+        this.buildChoiceUpdater = buildChoiceUpdater;
         mainCamera = Camera.main;
     }
 
@@ -117,17 +119,7 @@ public class PlacementController
             List<SacrificableSelectableObject> sacrificableSelectableObjects = playerObjectPool.GetSacrificableSelectedObjects();
             if (activeManager.GetBuildCosts() <= PlayerResources.GetInstance().GetResourceCount(PlayerResources.PlayerResource.SELECTED_BLOOD))
             {
-                int sacrificedBlood = 0;
-                foreach (SacrificableSelectableObject sacrificable in sacrificableSelectableObjects)
-                {
-                    sacrificable.Select(false);
-                    sacrificable.DestroySelectionCircle();
-                    if (sacrificedBlood < activeManager.GetBuildCosts())
-                    {
-                        sacrificable.Sacrifice();
-                        sacrificedBlood += sacrificable.GetBloodAmount();
-                    }
-                }
+                SacrificeUnits(sacrificableSelectableObjects);
                 activeManager.PlaceBuilding(buildingToPlace);
                 activeManager = null;
                 buildingToPlace = null;
@@ -139,6 +131,46 @@ public class PlacementController
             activeManager.ReleaseBuilding(buildingToPlace);
             activeManager = null;
             buildingToPlace = null;
+        }
+    }
+
+    private void SacrificeUnits(List<SacrificableSelectableObject> sacrificableSelectableObjects)
+    {
+        int sacrificedBlood = 0;
+        bool mainObjectForHudSacrificed = false;
+        foreach (SacrificableSelectableObject sacrificable in sacrificableSelectableObjects)
+        {
+            if (sacrificedBlood < activeManager.GetBuildCosts())
+            {
+                if (buildChoiceUpdater.IsMainObjectForHud(sacrificable))
+                {
+                    mainObjectForHudSacrificed = true;
+                    buildChoiceUpdater.SetMainObjectForHud(null);
+                }
+                sacrificable.Select(false);
+                sacrificable.DestroySelectionCircle();
+                sacrificable.Sacrifice();
+                sacrificedBlood += sacrificable.GetBloodAmount();
+            }
+            else
+            {
+                if (mainObjectForHudSacrificed)
+                {
+                    buildChoiceUpdater.SetMainObjectForHud(sacrificable);
+                    break;
+                }
+            }
+        }
+
+        //let's hope, this does not happen too often
+        if (mainObjectForHudSacrificed && buildChoiceUpdater.IsMainObjectForHud(null))
+        {
+            List<PlayerSelectableObject> selectedObjects = playerObjectPool.GetSelectedObjects();
+            if (selectedObjects.Count > 0)
+            {
+                buildChoiceUpdater.SetMainObjectForHud(selectedObjects[0]);
+
+            }
         }
     }
 }

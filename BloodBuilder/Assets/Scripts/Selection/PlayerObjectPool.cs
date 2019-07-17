@@ -42,17 +42,4 @@ public class PlayerObjectPool
         }
         return sacrificableSelectableObjects;
     }
-
-    /**
-     * Inefficient, should be changed later 
-     **/
-    public int GetBloodAmountOfObjects(List<SacrificableSelectableObject> sacrificableSelectableObjects)
-    {
-        int result = 0;
-        foreach (SacrificableSelectableObject sacrificable in sacrificableSelectableObjects)
-        {
-            result += sacrificable.GetBloodAmount();
-        }
-        return result;
-    }
 }

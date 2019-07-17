@@ -21,6 +21,15 @@ public class BuildChoiceUpdater : IResourceChangeListener
         buildChoiceChangeListeners.Remove(buildChoiceChangeListener);
     }
 
+    public bool IsMainObjectForHud(PlayerSelectableObject playerSelectableObject)
+    {
+        if (playerSelectableObject == null)
+        {
+            return mainObjectForHUD == null;
+        }
+        return playerSelectableObject.Equals(mainObjectForHUD);
+    }
+
     public void SetMainObjectForHud(PlayerSelectableObject playerSelectableObject)
     {
         mainObjectForHUD = playerSelectableObject;
