@@ -15,11 +15,21 @@ These rules force the player to consider whether it is worth building a new buil
   - Barracks can now be built by sacrificing 3 units
   - UI! Build buildings and units via the actions menu on the bottom right of the screen!
 
-# What is not working
-  - Everything else
+# What is missing
+  - Unit movement
+  - Support for multiple (CPU-)players
+  - Attack system
+  - Player starting points
+  - AI
+  - Winning conditions
+  - At least one nice map
+  - More units/buildings
+  - Polish
+  - Balancing
+  - Everything else, I forgot to list here ;)
   
 # Downloads
-  - Download builds at [itch.io](https://thedarkweasel.itch.io/bloodbuilder)
+  - Download builds at [itch.io](https://d4rkweasel.itch.io/bloodbuilder)
 
   
 # License
