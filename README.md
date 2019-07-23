@@ -1,5 +1,5 @@
-# BloodBuilder
-BloodBuilder is a simple RTS, with the following rules:
+# Necrosynthesis
+Necrosynthesis is a simple RTS, with the following rules:
   - Units are built for no costs at all
   - For constructing a building you need blood
   - Blood is provided by sacrificing units
@@ -29,7 +29,7 @@ These rules force the player to consider whether it is worth building a new buil
   - Everything else, I forgot to list here ;)
   
 # Downloads
-  - Download builds at [itch.io](https://d4rkweasel.itch.io/bloodbuilder)
+  - Download builds at [itch.io](https://d4rkweasel.itch.io/necrosynthesis)
 
   
 # License
