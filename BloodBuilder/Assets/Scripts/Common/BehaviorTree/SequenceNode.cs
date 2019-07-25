@@ -1,17 +1,16 @@
 ﻿using System.Collections.Generic;
 
-public class SelectorNode : Node
+public class SequenceNode : Node
 {
-    /** Selector child nodes */
-    protected List<Node> m_nodes = new List<Node>();
+    private List<Node> m_nodes = new List<Node>();
 
-    public SelectorNode(List<Node> nodes)
+    public SequenceNode(List<Node> nodes)
     {
         m_nodes = nodes;
     }
 
-    /* returns FAILURE, if all children fail,
-       returns SUCCESS, if one child succeeds
+    /* returns FAILURE, if one child fails,
+       returns SUCCESS, if all children succeed
        returns RUNNING, if not all children have finished */
     public override NodeState Evaluate()
     {
@@ -20,10 +19,10 @@ public class SelectorNode : Node
             switch (node.Evaluate())
             {
                 case NodeState.FAILURE:
-                    continue;
-                case NodeState.SUCCESS:
-                    m_nodeState = NodeState.SUCCESS;
+                    m_nodeState = NodeState.FAILURE;
                     return m_nodeState;
+                case NodeState.SUCCESS:
+                    continue;
                 case NodeState.RUNNING:
                     m_nodeState = NodeState.RUNNING;
                     return m_nodeState;
@@ -31,7 +30,7 @@ public class SelectorNode : Node
                     throw new IllegalStateException("You should not be here!");
             }
         }
-        m_nodeState = NodeState.FAILURE;
+        m_nodeState = NodeState.SUCCESS;
         return m_nodeState;
     }
 }
