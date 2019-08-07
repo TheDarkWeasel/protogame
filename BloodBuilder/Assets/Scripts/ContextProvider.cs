@@ -26,7 +26,7 @@ public class ContextProvider
         return playerObjectPool;
     }
 
-    public BuildChoiceUpdater GetBuildChoiceManager()
+    public BuildChoiceUpdater GetBuildChoiceUpdater()
     {
         return buildChoiceUpdater;
     }

@@ -39,7 +39,7 @@ public class SelectionController
                     Deselect(selectableObject);
                 }
 
-                context.GetBuildChoiceManager().SetMainObjectForHud(null);
+                context.GetBuildChoiceUpdater().SetMainObjectForHud(null);
             }
             // If we let go of the left mouse button, end selection
             if (Input.GetMouseButtonUp(0))
@@ -62,7 +62,7 @@ public class SelectionController
                     }
                 }
 
-                context.GetBuildChoiceManager().SetMainObjectForHud(mainObjectForHUD);
+                context.GetBuildChoiceUpdater().SetMainObjectForHud(mainObjectForHUD);
 
                 isSelecting = false;
             }
