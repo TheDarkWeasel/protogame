@@ -20,6 +20,11 @@ public abstract class ParentNode : Node2
         return control;
     }
 
+    public void Add(Node2 task)
+    {
+        control.Add(task);
+    }
+
     public override bool CheckConditions()
     {
         return control.subnodes.Count > 0;

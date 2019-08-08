@@ -3,30 +3,40 @@ using System.Collections;
 
 public class UnitMicroAI : MonoBehaviour
 {
+    Node2 currentBehaviorTree = null;
 
-    // Use this for initialization
     void Start()
     {
 
     }
 
-    // Update is called once per frame
     void Update()
     {
-
+        if (currentBehaviorTree != null)
+        {
+            if(currentBehaviorTree.CheckConditions())
+            {
+                currentBehaviorTree.DoAction();
+            }
+        }
     }
 
     public void MoveTo(Vector3 target)
     {
         //TODO
         IBlackboard blackboard = null;
-        createMovementBehaviorTree(blackboard);
+        currentBehaviorTree = CreateMovementBehaviorTree(blackboard);
     }
 
-    private Node2 createMovementBehaviorTree(IBlackboard blackboard)
+    private Node2 CreateMovementBehaviorTree(IBlackboard blackboard)
     {
-        Node2 moveSequence = new Sequence(blackboard);
-        //TODO
-        return null;
+        //We don't really have a tree here, only a sequence leaf ;)
+        Sequence moveSequence = new Sequence(blackboard);
+
+        moveSequence.Add(new CalculateNextFreePositionNode(blackboard));
+        moveSequence.Add(new MoveToDestinationNode(blackboard));
+        moveSequence.Add(new WaitUntilArrivedAtDestinationNode(blackboard));
+
+        return moveSequence;
     }
 }
