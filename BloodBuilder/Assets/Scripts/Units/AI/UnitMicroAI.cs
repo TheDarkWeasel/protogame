@@ -5,11 +5,6 @@ public class UnitMicroAI : MonoBehaviour
 {
     Node2 currentBehaviorTree = null;
 
-    void Start()
-    {
-
-    }
-
     void Update()
     {
         if (currentBehaviorTree != null)

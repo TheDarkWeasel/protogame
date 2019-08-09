@@ -57,7 +57,7 @@ public abstract class AbsBuildingManager : BuildingManager
         return placementHotkey;
     }
 
-    public bool GetPlayerSelectableObjects(List<PlayerSelectableObject> outParam, SelectionState selectionState)
+    public bool GetPlayerSelectableObjects(List<IPlayerSelectableObject> outParam, SelectionState selectionState)
     {
         bool added = false;
         foreach (Building building in placedBuildings)
@@ -86,7 +86,7 @@ public abstract class AbsBuildingManager : BuildingManager
         return added;
     }
 
-    public bool GetSacrificableSelectableObjects(List<SacrificableSelectableObject> outParam, SelectionState selectionState)
+    public bool GetSacrificableSelectableObjects(List<ISacrificableSelectableObject> outParam, SelectionState selectionState)
     {
         return false;
     }

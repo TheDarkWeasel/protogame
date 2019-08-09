@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public interface SacrificableSelectableObject : PlayerSelectableObject
+public interface ISacrificableSelectableObject : IPlayerSelectableObject
 {
     int GetBloodAmount();
     void Sacrifice();

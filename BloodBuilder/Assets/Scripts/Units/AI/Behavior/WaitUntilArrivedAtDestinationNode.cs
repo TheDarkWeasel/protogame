@@ -1,34 +1,37 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class WaitUntilArrivedAtDestinationNode : Node2
+public class WaitUntilArrivedAtDestinationNode : LeafNode
 {
+    private UnitNavigation unitNavigation;
+    private IBlackboard blackboard;
+
     public WaitUntilArrivedAtDestinationNode(IBlackboard blackboard) : base(blackboard)
     {
+        this.blackboard = blackboard;
+        unitNavigation = blackboard.GetTargetGameObject().GetComponent<UnitNavigation>();
     }
 
     public override bool CheckConditions()
     {
-        throw new System.NotImplementedException();
+        return unitNavigation != null && blackboard.GetActionDestination() != null;
     }
 
     public override void DoAction()
     {
-        throw new System.NotImplementedException();
+        if (unitNavigation.HasReachedDestination())
+        {
+            control.FinishWithSuccess();
+        }
     }
 
     public override void End()
     {
-        throw new System.NotImplementedException();
-    }
-
-    public override NodeController GetControl()
-    {
-        throw new System.NotImplementedException();
+        //nothing here
     }
 
     public override void Start()
     {
-        throw new System.NotImplementedException();
+        //nothing here
     }
 }

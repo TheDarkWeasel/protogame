@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-public interface BuildingManager : SelectableObjectContainer, IBuildableByBlood
+public interface BuildingManager : ISelectableObjectContainer, IBuildableByBlood
 {
     Building CreateBuilding();
     void ReleaseBuilding(Building building);

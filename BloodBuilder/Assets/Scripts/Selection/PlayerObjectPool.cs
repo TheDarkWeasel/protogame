@@ -2,41 +2,41 @@
 
 public class PlayerObjectPool
 {
-    private List<SelectableObjectContainer> selectableObjectcontainers = new List<SelectableObjectContainer>();
+    private List<ISelectableObjectContainer> selectableObjectcontainers = new List<ISelectableObjectContainer>();
 
-    private List<PlayerSelectableObject> playerSelectableObjects = new List<PlayerSelectableObject>();
-    private List<PlayerSelectableObject> selectedObjects = new List<PlayerSelectableObject>();
-    private List<SacrificableSelectableObject> sacrificableSelectableObjects = new List<SacrificableSelectableObject>();
+    private List<IPlayerSelectableObject> playerSelectableObjects = new List<IPlayerSelectableObject>();
+    private List<IPlayerSelectableObject> selectedObjects = new List<IPlayerSelectableObject>();
+    private List<ISacrificableSelectableObject> sacrificableSelectableObjects = new List<ISacrificableSelectableObject>();
 
-    public void RegisterSelectableObjectContainer(SelectableObjectContainer obj)
+    public void RegisterSelectableObjectContainer(ISelectableObjectContainer obj)
     {
         selectableObjectcontainers.Add(obj);
     }
 
-    public List<PlayerSelectableObject> GetPlayerSelectableObjects()
+    public List<IPlayerSelectableObject> GetPlayerSelectableObjects()
     {
         return GetObjects(playerSelectableObjects, SelectionState.ALL);
     }
 
-    public List<PlayerSelectableObject> GetSelectedObjects()
+    public List<IPlayerSelectableObject> GetSelectedObjects()
     {
         return GetObjects(selectedObjects, SelectionState.SELECTED);
     }
 
-    private List<PlayerSelectableObject> GetObjects(List<PlayerSelectableObject> outList, SelectionState state)
+    private List<IPlayerSelectableObject> GetObjects(List<IPlayerSelectableObject> outList, SelectionState state)
     {
         outList.Clear();
-        foreach (SelectableObjectContainer selectableObjectContainer in selectableObjectcontainers)
+        foreach (ISelectableObjectContainer selectableObjectContainer in selectableObjectcontainers)
         {
             selectableObjectContainer.GetPlayerSelectableObjects(outList, state);
         }
         return outList;
     }
 
-    public List<SacrificableSelectableObject> GetSacrificableSelectedObjects()
+    public List<ISacrificableSelectableObject> GetSacrificableSelectedObjects()
     {
         sacrificableSelectableObjects.Clear();
-        foreach (SelectableObjectContainer selectableObjectContainer in selectableObjectcontainers)
+        foreach (ISelectableObjectContainer selectableObjectContainer in selectableObjectcontainers)
         {
             selectableObjectContainer.GetSacrificableSelectableObjects(sacrificableSelectableObjects, SelectionState.SELECTED);
         }

@@ -44,7 +44,7 @@ public class SelectionController
             // If we let go of the left mouse button, end selection
             if (Input.GetMouseButtonUp(0))
             {
-                PlayerSelectableObject mainObjectForHUD = null;
+                IPlayerSelectableObject mainObjectForHUD = null;
 
                 foreach (var selectableObject in context.GetPlayerObjectPool().GetPlayerSelectableObjects())
                 {
@@ -85,12 +85,12 @@ public class SelectionController
         }
     }
 
-    private void Select(PlayerSelectableObject selectableObject)
+    private void Select(IPlayerSelectableObject selectableObject)
     {
         selectableObject.CreateSelectionCircle(selectionCirclePrefab);
     }
 
-    private void Deselect(PlayerSelectableObject selectableObject)
+    private void Deselect(IPlayerSelectableObject selectableObject)
     {
         selectableObject.DestroySelectionCircle();
     }

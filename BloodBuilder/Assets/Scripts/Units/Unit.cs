@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 
-public abstract class Unit : SacrificableSelectableObject
+public abstract class Unit : ISacrificableSelectableObject
 {
     protected string prefabPath;
     protected GameObject instantiatedObject;

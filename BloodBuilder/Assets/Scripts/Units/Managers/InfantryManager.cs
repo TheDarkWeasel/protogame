@@ -62,7 +62,7 @@ public class InfantryManager : UnitManager
         return 2;
     }
 
-    public bool GetPlayerSelectableObjects(List<PlayerSelectableObject> outParam, SelectionState selectionState)
+    public bool GetPlayerSelectableObjects(List<IPlayerSelectableObject> outParam, SelectionState selectionState)
     {
         bool added = false;
         foreach (Unit unit in builtUnits)
@@ -79,7 +79,7 @@ public class InfantryManager : UnitManager
         return added;
     }
 
-    public bool GetSacrificableSelectableObjects(List<SacrificableSelectableObject> outParam, SelectionState selectionState)
+    public bool GetSacrificableSelectableObjects(List<ISacrificableSelectableObject> outParam, SelectionState selectionState)
     {
         bool added = false;
         foreach (Unit unit in builtUnits)

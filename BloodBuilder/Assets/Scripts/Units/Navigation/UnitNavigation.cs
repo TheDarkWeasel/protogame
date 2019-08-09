@@ -5,12 +5,14 @@ using UnityEngine.AI;
 public class UnitNavigation : MonoBehaviour
 {
 
-    NavMeshAgent navMeshAgent;
-    float unitSize;
+    private NavMeshAgent navMeshAgent;
+    private float unitSize;
+
+    private bool reachedDestination = true;
 
     void Awake()
     {
-        if(navMeshAgent == null)
+        if (navMeshAgent == null)
         {
             gameObject.AddComponent<NavMeshAgent>();
             navMeshAgent = gameObject.GetComponent<NavMeshAgent>();
@@ -28,6 +30,7 @@ public class UnitNavigation : MonoBehaviour
                 if (!navMeshAgent.hasPath || navMeshAgent.velocity.sqrMagnitude <= 0.6f)
                 {
                     navMeshAgent.isStopped = true;
+                    reachedDestination = true;
                 }
             }
         }
@@ -35,6 +38,13 @@ public class UnitNavigation : MonoBehaviour
 
     public bool SetDestination(Vector3 target)
     {
+        reachedDestination = false;
         return navMeshAgent.SetDestination(target);
     }
+
+    public bool HasReachedDestination()
+    {
+        return reachedDestination;
+    }
+
 }

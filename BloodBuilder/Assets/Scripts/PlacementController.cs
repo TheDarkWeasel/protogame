@@ -116,7 +116,7 @@ public class PlacementController
         {
             //Build building
             //TODO check efficiency
-            List<SacrificableSelectableObject> sacrificableSelectableObjects = playerObjectPool.GetSacrificableSelectedObjects();
+            List<ISacrificableSelectableObject> sacrificableSelectableObjects = playerObjectPool.GetSacrificableSelectedObjects();
             if (activeManager.GetBuildCosts() <= PlayerResources.GetInstance().GetResourceCount(PlayerResources.PlayerResource.SELECTED_BLOOD))
             {
                 SacrificeUnits(sacrificableSelectableObjects);
@@ -134,11 +134,11 @@ public class PlacementController
         }
     }
 
-    private void SacrificeUnits(List<SacrificableSelectableObject> sacrificableSelectableObjects)
+    private void SacrificeUnits(List<ISacrificableSelectableObject> sacrificableSelectableObjects)
     {
         int sacrificedBlood = 0;
         bool mainObjectForHudSacrificed = false;
-        foreach (SacrificableSelectableObject sacrificable in sacrificableSelectableObjects)
+        foreach (ISacrificableSelectableObject sacrificable in sacrificableSelectableObjects)
         {
             if (sacrificedBlood < activeManager.GetBuildCosts())
             {
@@ -165,7 +165,7 @@ public class PlacementController
         //let's hope, this does not happen too often
         if (mainObjectForHudSacrificed && buildChoiceUpdater.IsMainObjectForHud(null))
         {
-            List<PlayerSelectableObject> selectedObjects = playerObjectPool.GetSelectedObjects();
+            List<IPlayerSelectableObject> selectedObjects = playerObjectPool.GetSelectedObjects();
             if (selectedObjects.Count > 0)
             {
                 buildChoiceUpdater.SetMainObjectForHud(selectedObjects[0]);

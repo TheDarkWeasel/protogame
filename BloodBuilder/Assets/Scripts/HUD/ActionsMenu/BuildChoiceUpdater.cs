@@ -4,7 +4,7 @@ using System.Collections.Generic;
 public class BuildChoiceUpdater : IResourceChangeListener
 {
     private List<IBuildChoiceChangeListener> buildChoiceChangeListeners;
-    private PlayerSelectableObject mainObjectForHUD = null;
+    private IPlayerSelectableObject mainObjectForHUD = null;
 
     public BuildChoiceUpdater()
     {
@@ -21,7 +21,7 @@ public class BuildChoiceUpdater : IResourceChangeListener
         buildChoiceChangeListeners.Remove(buildChoiceChangeListener);
     }
 
-    public bool IsMainObjectForHud(PlayerSelectableObject playerSelectableObject)
+    public bool IsMainObjectForHud(IPlayerSelectableObject playerSelectableObject)
     {
         if (playerSelectableObject == null)
         {
@@ -30,7 +30,7 @@ public class BuildChoiceUpdater : IResourceChangeListener
         return playerSelectableObject.Equals(mainObjectForHUD);
     }
 
-    public void SetMainObjectForHud(PlayerSelectableObject playerSelectableObject)
+    public void SetMainObjectForHud(IPlayerSelectableObject playerSelectableObject)
     {
         mainObjectForHUD = playerSelectableObject;
         TriggerBuildChoiceUpdate();

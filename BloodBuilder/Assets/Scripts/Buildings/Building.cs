@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.AI;
 
-public abstract class Building : PlayerSelectableObject
+public abstract class Building : IPlayerSelectableObject
 {
     protected string prefabPath;
     protected GameObject instantiatedObject;

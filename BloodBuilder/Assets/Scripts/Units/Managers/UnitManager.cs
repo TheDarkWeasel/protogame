@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public interface UnitManager : SelectableObjectContainer
+public interface UnitManager : ISelectableObjectContainer
 {
     Unit CreateUnit();
     void ReleaseUnit(Unit unit);

@@ -1,35 +1,55 @@
 ﻿using UnityEngine;
 using UnityEditor;
 
-public class CalculateNextFreePositionNode : Node2
+public class CalculateNextFreePositionNode : LeafNode
 {
+    private IBlackboard blackboard;
 
     public CalculateNextFreePositionNode(IBlackboard blackboard) : base(blackboard)
     {
+        this.blackboard = blackboard;
     }
 
     public override bool CheckConditions()
     {
-        throw new System.NotImplementedException();
+        return blackboard.GetActionDestination() != null;
     }
 
     public override void DoAction()
     {
-        throw new System.NotImplementedException();
+        int tries = 100;
+
+        while (tries > 0)
+        {
+            Vector3 spawnPos = blackboard.GetActionDestination();
+            float radius = 1.0f;
+
+            if (Physics.CheckSphere(spawnPos, radius))
+            {
+                float x = blackboard.GetActionDestination().x;
+                float z = blackboard.GetActionDestination().z;
+
+                //TODO generate new vector with minor random differences
+
+                tries--;
+            }
+            else
+            {
+                control.FinishWithSuccess();
+                return;
+            }
+        }
+
+        control.FinishWithFailure();
     }
 
     public override void End()
     {
-        throw new System.NotImplementedException();
-    }
-
-    public override NodeController GetControl()
-    {
-        throw new System.NotImplementedException();
+        //nothing here
     }
 
     public override void Start()
     {
-        throw new System.NotImplementedException();
+        //nothing here
     }
 }

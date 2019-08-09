@@ -77,7 +77,7 @@ public class GameController : MonoBehaviour
         {
             //TODO I don't know, if this will be the final way of triggering the unit building process.
             //It does not feel right and looks inperfomant. Very likely to be changed. But for now it should work.
-            foreach (PlayerSelectableObject playerSelectableObject in playerObjectPool.GetSelectedObjects())
+            foreach (IPlayerSelectableObject playerSelectableObject in playerObjectPool.GetSelectedObjects())
             {
                 playerSelectableObject.Update();
             }
