@@ -1,6 +1,7 @@
-﻿using UnityEngine;
-using UnityEditor;
-
+﻿
+/**
+ *  Moves the target GameObject to a destination. Only works, if the GameObject has the UnitNavigation-Component 
+ **/
 public class MoveToDestinationNode : LeafNode
 {
     private UnitNavigation unitNavigation;

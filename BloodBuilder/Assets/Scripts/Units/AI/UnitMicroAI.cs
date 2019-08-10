@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
-using System.Collections;
 
+/**
+ * Micro AI for Units. Decides what to do using behavior trees.
+ **/
 public class UnitMicroAI : MonoBehaviour
 {
     Node2 currentBehaviorTree = null;
@@ -9,7 +11,7 @@ public class UnitMicroAI : MonoBehaviour
     {
         if (currentBehaviorTree != null)
         {
-            if(currentBehaviorTree.CheckConditions())
+            if (currentBehaviorTree.CheckConditions())
             {
                 currentBehaviorTree.DoAction();
             }
@@ -18,8 +20,9 @@ public class UnitMicroAI : MonoBehaviour
 
     public void MoveTo(Vector3 target)
     {
-        //TODO
-        IBlackboard blackboard = null;
+        IBlackboard blackboard = new DefaultBlackboard();
+        blackboard.SetActionDestination(target);
+        blackboard.SetTargetGameObject(gameObject);
         currentBehaviorTree = CreateMovementBehaviorTree(blackboard);
     }
 

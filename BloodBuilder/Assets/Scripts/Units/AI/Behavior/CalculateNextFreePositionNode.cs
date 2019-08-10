@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
-using UnityEditor;
 
+/**
+ * Finds the next free spot near the action destination and writes it to the blackboard
+ **/
 public class CalculateNextFreePositionNode : LeafNode
 {
     private IBlackboard blackboard;
@@ -19,22 +21,25 @@ public class CalculateNextFreePositionNode : LeafNode
     {
         int tries = 100;
 
+        Vector3 spawnPos = new Vector3(blackboard.GetActionDestination().x, blackboard.GetActionDestination().y, blackboard.GetActionDestination().z);
+
         while (tries > 0)
         {
-            Vector3 spawnPos = blackboard.GetActionDestination();
             float radius = 1.0f;
 
             if (Physics.CheckSphere(spawnPos, radius))
             {
-                float x = blackboard.GetActionDestination().x;
-                float z = blackboard.GetActionDestination().z;
+                float x = blackboard.GetActionDestination().x + Random.Range(0f, 1f);
+                float z = blackboard.GetActionDestination().z + Random.Range(0f, 1f);
 
-                //TODO generate new vector with minor random differences
+                spawnPos.x = x;
+                spawnPos.z = z;
 
                 tries--;
             }
             else
             {
+                blackboard.SetActionDestination(spawnPos);
                 control.FinishWithSuccess();
                 return;
             }

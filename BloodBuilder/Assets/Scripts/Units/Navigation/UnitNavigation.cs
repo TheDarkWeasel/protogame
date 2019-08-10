@@ -2,6 +2,10 @@
 using System.Collections;
 using UnityEngine.AI;
 
+/**
+ * Provides a NavAgent for a GameObject.
+ * Wraps the NavAgent of Unity and provides automatic stopping, when the GameObject has reached it's destination.
+ **/
 public class UnitNavigation : MonoBehaviour
 {
 

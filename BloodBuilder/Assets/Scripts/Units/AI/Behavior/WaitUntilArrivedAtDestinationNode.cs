@@ -1,6 +1,8 @@
-﻿using UnityEngine;
-using System.Collections;
+﻿
 
+/**
+ * Node, which is just waiting, unit the target has reached it's destination
+ **/
 public class WaitUntilArrivedAtDestinationNode : LeafNode
 {
     private UnitNavigation unitNavigation;
@@ -14,7 +16,7 @@ public class WaitUntilArrivedAtDestinationNode : LeafNode
 
     public override bool CheckConditions()
     {
-        return unitNavigation != null && blackboard.GetActionDestination() != null;
+        return unitNavigation != null;
     }
 
     public override void DoAction()
