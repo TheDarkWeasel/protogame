@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public interface Theme
+public interface ITheme
 {
     string GetPlayerBasePrefabPath();
     string GetBarracksPrefabPath();

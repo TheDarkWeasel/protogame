@@ -4,9 +4,9 @@ using System.Collections;
 public class BuildUnitCommand : UnitCommand
 {
 
-    private UnitManager unitManager;
+    private IUnitManager unitManager;
 
-    public BuildUnitCommand(UnitManager unitManager, Vector3 positionForFinishedUnit, Vector3 assemblyPoint) : base(positionForFinishedUnit, assemblyPoint)
+    public BuildUnitCommand(IUnitManager unitManager, Vector3 positionForFinishedUnit, Vector3 assemblyPoint) : base(positionForFinishedUnit, assemblyPoint)
     {
         this.unitManager = unitManager;
     }

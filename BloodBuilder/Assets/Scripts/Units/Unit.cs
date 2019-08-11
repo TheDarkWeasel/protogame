@@ -7,13 +7,13 @@ public abstract class Unit : ISacrificableSelectableObject
     protected GameObject instantiatedObject;
     protected GameObject selectionCircle;
     protected bool selected = false;
-    protected UnitManager parentManager;
+    protected IUnitManager parentManager;
     protected UnitBuildChoiceProvider unitBuildChoiceProvider;
 
-    public UnitManager ParentManager { get => parentManager; set => parentManager = value; }
+    public IUnitManager ParentManager { get => parentManager; set => parentManager = value; }
     public UnitBuildChoiceProvider UnitBuildChoiceProvider { get => unitBuildChoiceProvider; set => unitBuildChoiceProvider = value; }
 
-    public Unit(UnitManager parentManager, UnitBuildChoiceProvider unitBuildChoiceProvider)
+    public Unit(IUnitManager parentManager, UnitBuildChoiceProvider unitBuildChoiceProvider)
     {
         this.parentManager = parentManager;
         this.unitBuildChoiceProvider = unitBuildChoiceProvider;

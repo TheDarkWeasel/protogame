@@ -4,30 +4,30 @@ using System.Collections.Generic;
 
 public class PlacementController
 {
-    private List<BuildingManager> buildingManagers;
+    private List<IBuildingManager> buildingManagers;
     private Building buildingToPlace;
     private Vector3 specificVector = new Vector3();
     private PlayerObjectPool playerObjectPool;
     private BuildChoiceUpdater buildChoiceUpdater;
-    private BuildingManager activeManager;
+    private IBuildingManager activeManager;
     private RaycastHit hitInfo;
 
     private Camera mainCamera;
 
     public PlacementController(PlayerObjectPool playerObjectPool, BuildChoiceUpdater buildChoiceUpdater)
     {
-        buildingManagers = new List<BuildingManager>();
+        buildingManagers = new List<IBuildingManager>();
         this.playerObjectPool = playerObjectPool;
         this.buildChoiceUpdater = buildChoiceUpdater;
         mainCamera = Camera.main;
     }
 
-    public void RegisterBuildingManager(BuildingManager manager)
+    public void RegisterBuildingManager(IBuildingManager manager)
     {
         buildingManagers.Add(manager);
     }
 
-    public void UnregisterBuildingManager(BuildingManager manager)
+    public void UnregisterBuildingManager(IBuildingManager manager)
     {
         buildingManagers.Remove(manager);
     }
@@ -53,7 +53,7 @@ public class PlacementController
      */
     private void HandleNewObjectHotkey()
     {
-        foreach (BuildingManager manager in buildingManagers)
+        foreach (IBuildingManager manager in buildingManagers)
         {
             if (Input.GetKeyDown(manager.GetPlacementHotkey()))
             {
@@ -73,7 +73,7 @@ public class PlacementController
         }
     }
 
-    public void BuildBuilding(BuildingManager manager)
+    public void BuildBuilding(IBuildingManager manager)
     {
         if (manager.GetBuildCosts() <= PlayerResources.GetInstance().GetResourceCount(PlayerResources.PlayerResource.SELECTED_BLOOD))
         {

@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class ToonTheme : Theme
+public class ToonTheme : ITheme
 {
     public string GetBarracksActionsMenuSpritePath()
     {

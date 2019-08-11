@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Barracks : Building
 {
-    List<UnitManager> registeredUnitManagers = new List<UnitManager>();
+    List<IUnitManager> registeredUnitManagers = new List<IUnitManager>();
 
     public Barracks(ContextProvider context) : base(context)
     {
@@ -19,7 +19,7 @@ public class Barracks : Building
     public override void Update()
     {
         base.Update();
-        foreach (UnitManager manager in registeredUnitManagers)
+        foreach (IUnitManager manager in registeredUnitManagers)
         {
             if (Input.GetKeyDown(manager.GetBuildHotkey()))
             {

@@ -3,8 +3,8 @@
 public class GameController : MonoBehaviour
 {
 
-    private static Theme theme = new OpenSourceTheme();
-    private static Hotkeys hotkeys = new PCHotkeys();
+    private static ITheme theme = new OpenSourceTheme();
+    private static IHotkeys hotkeys = new PCHotkeys();
     private PlacementController placementController;
     private SelectionController selectionController;
     private PlayerObjectPool playerObjectPool;
@@ -26,12 +26,12 @@ public class GameController : MonoBehaviour
 
         selectionController = new SelectionController(context);
 
-        BuildingManager playerBaseManager = new PlayerBaseManager(context);
+        IBuildingManager playerBaseManager = new PlayerBaseManager(context);
         placementController.RegisterBuildingManager(playerBaseManager);
         playerObjectPool.RegisterSelectableObjectContainer(playerBaseManager);
         unitBuildChoiceProvider.RegisterBloodBuildable(playerBaseManager);
 
-        BuildingManager barracksManager = new BarracksManager(context);
+        IBuildingManager barracksManager = new BarracksManager(context);
         placementController.RegisterBuildingManager(barracksManager);
         playerObjectPool.RegisterSelectableObjectContainer(barracksManager);
         unitBuildChoiceProvider.RegisterBloodBuildable(barracksManager);
@@ -98,12 +98,12 @@ public class GameController : MonoBehaviour
         }
     }
 
-    public static Theme GetGlobalTheme()
+    public static ITheme GetGlobalTheme()
     {
         return theme;
     }
 
-    public static Hotkeys GetHotkeys()
+    public static IHotkeys GetHotkeys()
     {
         return hotkeys;
     }

@@ -1,9 +1,9 @@
 ﻿public class BuildBuildingAction : IBuildAction
 {
     private PlacementController placementController;
-    private BuildingManager buildingManager;
+    private IBuildingManager buildingManager;
 
-    public BuildBuildingAction(PlacementController placementController, BuildingManager buildingManager)
+    public BuildBuildingAction(PlacementController placementController, IBuildingManager buildingManager)
     {
         this.placementController = placementController;
         this.buildingManager = buildingManager;

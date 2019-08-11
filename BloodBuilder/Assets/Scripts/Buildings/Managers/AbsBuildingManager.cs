@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class AbsBuildingManager : BuildingManager
+public abstract class AbsBuildingManager : IBuildingManager
 {
     protected KeyCode placementHotkey;
     protected ContextProvider context;

@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 
-public class InfantryManager : UnitManager
+public class InfantryManager : IUnitManager
 {
     protected KeyCode placementHotkey;
     private Sprite unitProductionSprite;

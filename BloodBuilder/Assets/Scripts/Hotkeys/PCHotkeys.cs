@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class PCHotkeys : Hotkeys
+public class PCHotkeys : IHotkeys
 {
     public KeyCode GetBuildBarracksHotkey()
     {

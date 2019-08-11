@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class OpenSourceTheme : Theme
+public class OpenSourceTheme : ITheme
 {
     public string GetBarracksActionsMenuSpritePath()
     {
@@ -33,7 +33,7 @@ public class OpenSourceTheme : Theme
         return "Models/SelectionCirclePrefab";
     }
 
-    string Theme.GetPlayerBasePrefabPath()
+    string ITheme.GetPlayerBasePrefabPath()
     {
         return "Models/PlayerBase";
     }

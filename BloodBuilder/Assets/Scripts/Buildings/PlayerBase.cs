@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerBase : Building
 {
-    List<UnitManager> registeredUnitManagers = new List<UnitManager>();
+    List<IUnitManager> registeredUnitManagers = new List<IUnitManager>();
 
     public PlayerBase(ContextProvider context) : base(context)
     {
@@ -20,7 +20,7 @@ public class PlayerBase : Building
     public override void Update()
     {
         base.Update();
-        foreach (UnitManager manager in registeredUnitManagers)
+        foreach (IUnitManager manager in registeredUnitManagers)
         {
             if (Input.GetKeyDown(manager.GetBuildHotkey()))
             {
@@ -32,7 +32,7 @@ public class PlayerBase : Building
     public override List<BuildChoice> GetBuildChoices()
     {
         List<BuildChoice> result = new List<BuildChoice>();
-        foreach (UnitManager manager in registeredUnitManagers)
+        foreach (IUnitManager manager in registeredUnitManagers)
         {
             BuildChoice choice = new BuildChoice
             {

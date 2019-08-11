@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public interface Hotkeys
+public interface IHotkeys
 {
     KeyCode GetQuitHotkey();
 
