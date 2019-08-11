@@ -1,6 +1,9 @@
 ﻿using UnityEngine;
 using UnityEditor;
 
+/* returns FAILURE, if all children fail,
+   returns SUCCESS, if one child succeeds
+   returns RUNNING, if not all children have finished */
 public class Selector : ParentNode
 {
 

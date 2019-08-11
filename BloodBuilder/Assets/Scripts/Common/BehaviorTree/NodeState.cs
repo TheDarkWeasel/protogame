@@ -1,4 +1,4 @@
 ﻿public enum NodeState
 {
-    FAILURE, SUCCESS, RUNNING
+    IDLE, FAILURE, SUCCESS, RUNNING
 }

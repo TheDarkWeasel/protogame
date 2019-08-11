@@ -46,13 +46,12 @@ public abstract class ParentNode : Node2
             return;
         }
 
-        if (!control.currentNode.GetControl().Started())
+        if (!control.currentNode.GetControl().Started() && !control.currentNode.GetControl().Finished())
         {
             control.currentNode.GetControl().SafeStart();
         }
         else if (control.currentNode.GetControl().Finished())
         {
-            control.currentNode.GetControl().SafeEnd();
             if (control.currentNode.GetControl().Succeeded())
             {
                 this.ChildSucceeded();
@@ -61,6 +60,7 @@ public abstract class ParentNode : Node2
             {
                 this.ChildFailed();
             }
+            control.currentNode.GetControl().SafeEnd();
         }
         else
         {

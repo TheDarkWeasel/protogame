@@ -1,9 +1,7 @@
 ﻿public class NodeController
 {
 
-    private bool done;
-    private bool sucess;
-    private bool started;
+    private NodeState currentState = NodeState.IDLE;
     private Node2 node;
 
     public NodeController(Node2 node)
@@ -14,9 +12,7 @@
 
     private void Initialize()
     {
-        this.done = false;
-        this.sucess = true;
-        this.started = false;
+        currentState = NodeState.IDLE;
     }
 
     public void SetNode(Node2 node)
@@ -26,51 +22,48 @@
 
     public void SafeStart()
     {
-        this.started = true;
+        currentState = NodeState.RUNNING;
         node.Start();
     }
 
     public void SafeEnd()
     {
-        this.done = false;
-        this.started = false;
+        currentState = NodeState.IDLE;
         node.End();
     }
 
     public void FinishWithSuccess()
     {
-        this.sucess = true;
-        this.done = true;
+        currentState = NodeState.SUCCESS;
     }
 
     public void FinishWithFailure()
     {
-        this.sucess = false;
-        this.done = true;
+        currentState = NodeState.FAILURE;
     }
 
     public bool Succeeded()
     {
-        return this.sucess;
+        return currentState == NodeState.SUCCESS;
     }
 
     public bool Failed()
     {
-        return !this.sucess;
+        return currentState == NodeState.FAILURE;
     }
 
     public bool Finished()
     {
-        return this.done;
+        return Succeeded() || Failed();
     }
 
     public bool Started()
     {
-        return this.started;
+        return currentState == NodeState.RUNNING;
     }
 
     public virtual void Reset()
     {
-        this.done = false;
+        currentState = NodeState.RUNNING;
     }
 }

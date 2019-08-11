@@ -1,6 +1,9 @@
 ﻿using UnityEngine;
 using UnityEditor;
 
+/* returns FAILURE, if one child fails,
+   returns SUCCESS, if all children succeed
+   returns RUNNING, if not all children have finished */
 public class Sequence : ParentNode
 {
 

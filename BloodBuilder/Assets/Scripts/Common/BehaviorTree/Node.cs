@@ -1,17 +1,19 @@
-﻿
-[System.Serializable]
-public abstract class Node
+﻿public abstract class Node2
 {
-    public delegate NodeState NodeReturn();
+    protected IBlackboard bb;
 
-    protected NodeState m_nodeState;
-
-    public NodeState nodeState
+    public Node2(IBlackboard blackboard)
     {
-        get { return m_nodeState; }
+        this.bb = blackboard;
     }
 
-    public Node() { }
+    public abstract bool CheckConditions();
 
-    public abstract NodeState Evaluate();
+    public abstract void Start();
+
+    public abstract void End();
+
+    public abstract void DoAction();
+
+    public abstract NodeController GetControl();
 }
