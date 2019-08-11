@@ -6,9 +6,9 @@
     private bool started;
     private Node2 node;
 
-    public NodeController(Node2 task)
+    public NodeController(Node2 node)
     {
-        SetNode(task);
+        SetNode(node);
         Initialize();
     }
 
@@ -19,9 +19,9 @@
         this.started = false;
     }
 
-    public void SetNode(Node2 task)
+    public void SetNode(Node2 node)
     {
-        this.node = task;
+        this.node = node;
     }
 
     public void SafeStart()

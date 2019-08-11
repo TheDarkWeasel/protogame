@@ -43,6 +43,7 @@ public class UnitNavigation : MonoBehaviour
     public bool SetDestination(Vector3 target)
     {
         reachedDestination = false;
+        navMeshAgent.isStopped = false;
         return navMeshAgent.SetDestination(target);
     }
 

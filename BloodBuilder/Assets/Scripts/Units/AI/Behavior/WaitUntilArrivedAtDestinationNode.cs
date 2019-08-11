@@ -16,7 +16,7 @@ public class WaitUntilArrivedAtDestinationNode : LeafNode
 
     public override bool CheckConditions()
     {
-        return unitNavigation != null;
+        return blackboard.GetTargetGameObject().activeSelf && unitNavigation != null;
     }
 
     public override void DoAction()

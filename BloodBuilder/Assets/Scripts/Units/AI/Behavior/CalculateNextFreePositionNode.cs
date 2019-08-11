@@ -14,20 +14,21 @@ public class CalculateNextFreePositionNode : LeafNode
 
     public override bool CheckConditions()
     {
-        return blackboard.GetActionDestination() != null;
+        return blackboard.GetTargetGameObject().activeSelf && blackboard.GetActionDestination() != null;
     }
 
     public override void DoAction()
     {
         int tries = 100;
 
-        Vector3 spawnPos = new Vector3(blackboard.GetActionDestination().x, blackboard.GetActionDestination().y, blackboard.GetActionDestination().z);
+        //add 0.1 to y to ignore ground
+        Vector3 spawnPos = new Vector3(blackboard.GetActionDestination().x, blackboard.GetActionDestination().y + 0.1f , blackboard.GetActionDestination().z);
 
         while (tries > 0)
         {
             float radius = 1.0f;
 
-            if (Physics.CheckSphere(spawnPos, radius))
+            if (Physics.CheckBox(spawnPos, new Vector3(radius, 0, radius)))
             {
                 float x = blackboard.GetActionDestination().x + Random.Range(0f, 1f);
                 float z = blackboard.GetActionDestination().z + Random.Range(0f, 1f);
@@ -39,6 +40,8 @@ public class CalculateNextFreePositionNode : LeafNode
             }
             else
             {
+                //reset y before writing to blackboard
+                spawnPos.y = blackboard.GetActionDestination().y;
                 blackboard.SetActionDestination(spawnPos);
                 control.FinishWithSuccess();
                 return;

@@ -24,7 +24,7 @@ public abstract class Unit : ISacrificableSelectableObject
         instantiatedObject = Object.Instantiate(Resources.Load<GameObject>(prefabPath));
         instantiatedObject.AddComponent<Rigidbody>();
         instantiatedObject.AddComponent<BoxCollider>();
-        instantiatedObject.AddComponent<UnitNavigation>();
+        instantiatedObject.AddComponent<UnitMicroAI>();
     }
 
     public void SetPosition(Vector3 position)
@@ -34,7 +34,7 @@ public abstract class Unit : ISacrificableSelectableObject
 
     public void MoveToPosition(Vector3 position)
     {
-        instantiatedObject.GetComponent<UnitNavigation>().SetDestination(position);
+        instantiatedObject.GetComponent<UnitMicroAI>().MoveTo(position);
     }
 
     public void Destroy()

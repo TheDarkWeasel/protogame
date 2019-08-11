@@ -6,6 +6,16 @@
 public class UnitMicroAI : MonoBehaviour
 {
     Node2 currentBehaviorTree = null;
+    UnitNavigation unitNavigation = null;
+
+    void Awake()
+    {
+        if (unitNavigation == null)
+        {
+            gameObject.AddComponent<UnitNavigation>();
+            unitNavigation = gameObject.GetComponent<UnitNavigation>();
+        }
+    }
 
     void Update()
     {
@@ -13,17 +23,23 @@ public class UnitMicroAI : MonoBehaviour
         {
             if (currentBehaviorTree.CheckConditions())
             {
+
                 currentBehaviorTree.DoAction();
+            }
+
+            if (currentBehaviorTree.GetControl().Finished())
+            {
+                currentBehaviorTree = null;
             }
         }
     }
 
     public void MoveTo(Vector3 target)
     {
-        IBlackboard blackboard = new DefaultBlackboard();
-        blackboard.SetActionDestination(target);
-        blackboard.SetTargetGameObject(gameObject);
-        currentBehaviorTree = CreateMovementBehaviorTree(blackboard);
+        IBlackboard currentBlackboard = new DefaultBlackboard();
+        currentBlackboard.SetActionDestination(target);
+        currentBlackboard.SetTargetGameObject(gameObject);
+        currentBehaviorTree = CreateMovementBehaviorTree(currentBlackboard);
     }
 
     private Node2 CreateMovementBehaviorTree(IBlackboard blackboard)
@@ -34,6 +50,8 @@ public class UnitMicroAI : MonoBehaviour
         moveSequence.Add(new CalculateNextFreePositionNode(blackboard));
         moveSequence.Add(new MoveToDestinationNode(blackboard));
         moveSequence.Add(new WaitUntilArrivedAtDestinationNode(blackboard));
+
+        moveSequence.Start();
 
         return moveSequence;
     }

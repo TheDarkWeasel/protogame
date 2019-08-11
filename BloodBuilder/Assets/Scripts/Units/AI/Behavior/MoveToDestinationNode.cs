@@ -15,7 +15,7 @@ public class MoveToDestinationNode : LeafNode
 
     public override bool CheckConditions()
     {
-        return unitNavigation != null && blackboard.GetActionDestination() != null;
+        return blackboard.GetTargetGameObject().activeSelf && unitNavigation != null && blackboard.GetActionDestination() != null;
     }
 
     public override void DoAction()
