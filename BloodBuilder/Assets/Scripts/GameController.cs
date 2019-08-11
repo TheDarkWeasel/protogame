@@ -8,6 +8,7 @@ public class GameController : MonoBehaviour
     private PlacementController placementController;
     private SelectionController selectionController;
     private PlayerObjectPool playerObjectPool;
+    private SelectedGroupController selectedGroupController;
 
     void Start()
     {
@@ -25,6 +26,7 @@ public class GameController : MonoBehaviour
         context = new ContextProvider(this, playerObjectPool, buildChoiceUpdater, infantryManager);
 
         selectionController = new SelectionController(context);
+        selectedGroupController = new SelectedGroupController(context);
 
         IBuildingManager playerBaseManager = new PlayerBaseManager(context);
         placementController.RegisterBuildingManager(playerBaseManager);
@@ -73,14 +75,10 @@ public class GameController : MonoBehaviour
             selectionController.SetActive(!placementControllerActive);
         }
 
-        if (playerObjectPool != null)
+        if (selectedGroupController != null)
         {
-            //TODO I don't know, if this will be the final way of triggering the unit building process.
-            //It does not feel right and looks inperfomant. Very likely to be changed. But for now it should work.
-            foreach (IPlayerSelectableObject playerSelectableObject in playerObjectPool.GetSelectedObjects())
-            {
-                playerSelectableObject.Update();
-            }
+            selectedGroupController.Update();
+            selectedGroupController.SetActive(!placementControllerActive);
         }
 
         //Exit

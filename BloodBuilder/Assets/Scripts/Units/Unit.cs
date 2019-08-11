@@ -125,4 +125,9 @@ public abstract class Unit : ISacrificableSelectableObject
     {
         return unitBuildChoiceProvider.GetBuildChoicesForSelectedBlood();
     }
+
+    public void OnSecondaryAction(Vector3 postion)
+    {
+        MoveToPosition(postion);
+    }
 }

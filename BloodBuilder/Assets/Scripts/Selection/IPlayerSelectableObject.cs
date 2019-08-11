@@ -25,4 +25,6 @@ public interface IPlayerSelectableObject
     GameObject GetGameObject();
     void CreateSelectionCircle(GameObject selectionCirclePrefab);
     void DestroySelectionCircle();
+
+    void OnSecondaryAction(Vector3 postion);
 }
