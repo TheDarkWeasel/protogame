@@ -6,6 +6,8 @@
 public class CalculateNextFreePositionNode : LeafNode
 {
     private IBlackboard blackboard;
+    //overall tries left in this node
+    private int maxTriesLeft = 100;
 
     public CalculateNextFreePositionNode(IBlackboard blackboard) : base(blackboard)
     {
@@ -19,36 +21,45 @@ public class CalculateNextFreePositionNode : LeafNode
 
     public override void DoAction()
     {
-        int tries = 100;
-
         //add 0.1 to y to ignore ground
-        Vector3 spawnPos = new Vector3(blackboard.GetActionDestination().x, blackboard.GetActionDestination().y + 0.1f , blackboard.GetActionDestination().z);
+        Vector3 spawnPos = new Vector3(blackboard.GetActionDestination().x, blackboard.GetActionDestination().y + 0.1f, blackboard.GetActionDestination().z);
 
-        while (tries > 0)
+        //tries left in this frame, before trying again in the next frame. We don't want to block the update-loop for too long.
+        int triesPerFrameLeft = 20;
+
+        if (maxTriesLeft > 0)
         {
-            float radius = 1.0f;
-
-            if (Physics.CheckBox(spawnPos, new Vector3(radius, 0, radius)))
+            while (triesPerFrameLeft > 0)
             {
-                float x = blackboard.GetActionDestination().x + Random.Range(0f, 1f);
-                float z = blackboard.GetActionDestination().z + Random.Range(0f, 1f);
+                float radius = 1.0f;
 
-                spawnPos.x = x;
-                spawnPos.z = z;
+                if (Physics.CheckBox(spawnPos, new Vector3(radius, 0, radius)))
+                {
+                    float x = spawnPos.x + Random.Range(-0.9f, 0.9f);
+                    float z = spawnPos.z + Random.Range(-0.9f, 0.9f);
 
-                tries--;
-            }
-            else
-            {
-                //reset y before writing to blackboard
-                spawnPos.y = blackboard.GetActionDestination().y;
-                blackboard.SetActionDestination(spawnPos);
-                control.FinishWithSuccess();
-                return;
+                    spawnPos.x = x;
+                    spawnPos.z = z;
+
+                    maxTriesLeft--;
+                    triesPerFrameLeft--;
+                }
+                else
+                {
+                    //reset y before writing to blackboard
+                    spawnPos.y = blackboard.GetActionDestination().y;
+                    blackboard.SetActionDestination(spawnPos);
+                    control.FinishWithSuccess();
+                    return;
+                }
             }
         }
 
-        control.FinishWithFailure();
+        //After 100 tries this is also a success. We will just work with what we got und let the NavAgent handle the rest.
+        if (maxTriesLeft <= 0)
+        {
+            control.FinishWithSuccess();
+        }
     }
 
     public override void End()
