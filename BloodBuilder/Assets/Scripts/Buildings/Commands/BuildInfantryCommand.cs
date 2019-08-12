@@ -1,6 +1,9 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+/**
+ * Specific UnitCommand for building infantry units.
+ **/
 public class BuildUnitCommand : UnitCommand
 {
 

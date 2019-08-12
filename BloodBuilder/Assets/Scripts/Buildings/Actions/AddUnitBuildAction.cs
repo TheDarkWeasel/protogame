@@ -1,4 +1,7 @@
-﻿public class AddUnitBuildAction : IBuildAction
+﻿/**
+ * Action for adding a UnitCommand to the build queue of the parent building.
+ **/ 
+public class AddUnitBuildAction : IBuildAction
 {
     private UnitCommand command;
     private Building parent;

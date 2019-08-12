@@ -1,4 +1,7 @@
-﻿public class BuildBuildingAction : IBuildAction
+﻿/**
+ * Action for starting the placement process of a building.
+ **/ 
+public class BuildBuildingAction : IBuildAction
 {
     private PlacementController placementController;
     private IBuildingManager buildingManager;

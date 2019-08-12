@@ -1,6 +1,9 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
+/**
+ * Class, which controls the group of currently selected player objects.
+ **/
 public class SelectedGroupController
 {
     private ContextProvider context;
@@ -33,9 +36,21 @@ public class SelectedGroupController
 
                 if (Physics.Raycast(ray, out hitInfo))
                 {
+                    //Calculate the center of the currently selected units
+                    Vector3 center = new Vector3(0, 0, 0);
+
                     foreach (IPlayerSelectableObject playerSelectableObject in selectedObjects)
                     {
-                        playerSelectableObject.OnSecondaryAction(hitInfo.point);
+                        center += playerSelectableObject.GetGameObject().transform.position;
+                    }
+
+                    center /= selectedObjects.Count;
+
+                    //Move the selected units, respecting their current offset from the center of the group (so they stay in the same formation)
+                    foreach (IPlayerSelectableObject playerSelectableObject in selectedObjects)
+                    {
+                        Vector3 offset = playerSelectableObject.GetGameObject().transform.position - center;
+                        playerSelectableObject.OnSecondaryAction(hitInfo.point + offset);
                     }
                 }
             }

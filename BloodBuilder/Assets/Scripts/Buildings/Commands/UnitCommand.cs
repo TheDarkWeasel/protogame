@@ -1,6 +1,9 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+/**
+ *  Meta class for all commands executed by the build queue of buildings.
+ **/
 public abstract class UnitCommand
 {
     private Vector3 positionForFinishedUnit = new Vector3();
