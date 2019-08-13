@@ -2,6 +2,8 @@
 using UnityEngine.EventSystems;
 
 /**
+  * Controller, which is responsible for selecting units and buildings.
+  * 
   * Contains parts from: https://hyunkell.com/blog/rts-style-unit-selection-in-unity-5/ written by Jeff Zimmer
   **/
 public class SelectionController

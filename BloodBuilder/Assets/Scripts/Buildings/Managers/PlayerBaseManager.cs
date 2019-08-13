@@ -1,6 +1,9 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
+/**
+ * Manager handling the creation of the player base.
+ **/
 public class PlayerBaseManager : AbsBuildingManager
 {
     private Sprite buildingProductionSprite;

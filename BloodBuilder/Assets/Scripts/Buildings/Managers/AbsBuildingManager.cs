@@ -1,6 +1,9 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
+/**
+ * Abstract meta class for all buildings. Handles internal creation of buildings.
+ **/ 
 public abstract class AbsBuildingManager : IBuildingManager
 {
     protected KeyCode placementHotkey;

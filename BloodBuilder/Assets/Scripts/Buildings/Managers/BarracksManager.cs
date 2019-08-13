@@ -1,6 +1,9 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
+/**
+ * Manager handling the creation of barracks.
+ **/ 
 public class BarracksManager : AbsBuildingManager
 {
     private Sprite buildingProductionSprite;
