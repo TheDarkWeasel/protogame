@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 422170}
   - component: {fileID: 11939280}
+  - component: {fileID: 225891766758345191}
   m_Layer: 0
   m_Name: SelectionCirclePrefab
   m_TagString: Untagged
@@ -50,3 +51,18 @@ Projector:
   m_IgnoreLayers:
     serializedVersion: 2
     m_Bits: 54
+--- !u!111 &225891766758345191
+Animation:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 166266}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Animation: {fileID: 7400000, guid: 58cefba1c00079d4bbbdd4ec1613429f, type: 2}
+  m_Animations: []
+  m_WrapMode: 0
+  m_PlayAutomatically: 0
+  m_AnimatePhysics: 0
+  m_CullingType: 0
