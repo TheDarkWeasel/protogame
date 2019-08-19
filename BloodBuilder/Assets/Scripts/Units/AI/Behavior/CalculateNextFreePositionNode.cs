@@ -35,17 +35,23 @@ public class CalculateNextFreePositionNode : LeafNode
 
                 if (Physics.CheckBox(spawnPos, new Vector3(radius, 0, radius)))
                 {
-                    float x = spawnPos.x + Random.Range(-0.9f, 0.9f);
-                    float z = spawnPos.z + Random.Range(-0.9f, 0.9f);
-
-                    spawnPos.x = x;
-                    spawnPos.z = z;
-
-                    maxTriesLeft--;
-                    triesPerFrameLeft--;
+                    ModifySpawnPoint(ref spawnPos, ref triesPerFrameLeft);
                 }
                 else
                 {
+                    //check, if the chosen location is marked as blocked
+                    if (blackboard.GetBlockedLocations().Count > 0)
+                    {
+                        bool blocked = CheckIfBlocked(spawnPos, radius);
+
+                        if (blocked)
+                        {
+                            ModifySpawnPoint(ref spawnPos, ref triesPerFrameLeft);
+                            continue;
+                        }
+
+                    }
+
                     //reset y before writing to blackboard
                     spawnPos.y = blackboard.GetActionDestination().y;
                     blackboard.SetActionDestination(spawnPos);
@@ -60,6 +66,35 @@ public class CalculateNextFreePositionNode : LeafNode
         {
             control.FinishWithSuccess();
         }
+    }
+
+    private bool CheckIfBlocked(Vector3 spawnPos, float radius)
+    {
+        Bounds bounds = new Bounds(spawnPos, new Vector3(radius, radius, radius));
+        bool blocked = false;
+
+        foreach (Vector3 location in blackboard.GetBlockedLocations())
+        {
+            if (bounds.Contains(location))
+            {
+                blocked = true;
+                break;
+            }
+        }
+
+        return blocked;
+    }
+
+    private void ModifySpawnPoint(ref Vector3 spawnPos, ref int triesPerFrameLeft)
+    {
+        float x = spawnPos.x + Random.Range(-0.9f, 0.9f);
+        float z = spawnPos.z + Random.Range(-0.9f, 0.9f);
+
+        spawnPos.x = x;
+        spawnPos.z = z;
+
+        maxTriesLeft--;
+        triesPerFrameLeft--;
     }
 
     public override void End()

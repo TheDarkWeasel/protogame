@@ -170,7 +170,7 @@ public abstract class Building : IPlayerSelectableObject
 
     public abstract List<BuildChoice> GetBuildChoices();
 
-    public void OnSecondaryAction(Vector3 postion)
+    public void OnSecondaryAction(Vector3 postion, List<Vector3> blockedLocations)
     {
         //TODO set assembly point
     }

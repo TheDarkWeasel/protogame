@@ -64,7 +64,7 @@ public class SelectedGroupController
                         foreach (IPlayerSelectableObject playerSelectableObject in selectedObjects)
                         {
                             Vector3 offset = playerSelectableObject.GetGameObject().transform.position - center;
-                            playerSelectableObject.OnSecondaryAction(hitInfo.point + offset);
+                            playerSelectableObject.OnSecondaryAction(hitInfo.point + offset, new List<Vector3>());
                             ShowTargetClue(offset);
                         }
                     }
@@ -73,8 +73,9 @@ public class SelectedGroupController
                         //If the click is inside the current formation, just move the units to the point (with a small random offset).
                         foreach (IPlayerSelectableObject playerSelectableObject in selectedObjects)
                         {
-                            playerSelectableObject.OnSecondaryAction(hitInfo.point);
-                            ShowTargetClue(new Vector3(Random.Range(0, 1.5f), Random.Range(0, 1.5f), Random.Range(0, 1.5f)));
+                            Vector3 offset = new Vector3(Random.Range(0, 1.5f), Random.Range(0, 1.5f), Random.Range(0, 1.5f));
+                            playerSelectableObject.OnSecondaryAction(hitInfo.point + offset, new List<Vector3>());
+                            ShowTargetClue(offset);
                         }
                     }
                 }

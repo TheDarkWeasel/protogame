@@ -37,6 +37,11 @@ public abstract class Unit : ISacrificableSelectableObject
         instantiatedObject.GetComponent<UnitMicroAI>().MoveTo(position);
     }
 
+    public void MoveToPosition(Vector3 position, List<Vector3> blockedLocations)
+    {
+        instantiatedObject.GetComponent<UnitMicroAI>().MoveTo(position, blockedLocations);
+    }
+
     public void Destroy()
     {
         Object.Destroy(instantiatedObject);
@@ -126,8 +131,8 @@ public abstract class Unit : ISacrificableSelectableObject
         return unitBuildChoiceProvider.GetBuildChoicesForSelectedBlood();
     }
 
-    public void OnSecondaryAction(Vector3 postion)
+    public void OnSecondaryAction(Vector3 postion, List<Vector3> blockedLocations)
     {
-        MoveToPosition(postion);
+        MoveToPosition(postion, blockedLocations);
     }
 }

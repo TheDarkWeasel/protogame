@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using System.Collections.Generic;
 
 /**
  * Micro AI for Units. Decides what to do using behavior trees.
@@ -37,6 +38,15 @@ public class UnitMicroAI : MonoBehaviour
     public void MoveTo(Vector3 target)
     {
         IBlackboard currentBlackboard = new DefaultBlackboard();
+        currentBlackboard.SetActionDestination(target);
+        currentBlackboard.SetTargetGameObject(gameObject);
+        currentBehaviorTree = CreateMovementBehaviorTree(currentBlackboard);
+    }
+
+    public void MoveTo(Vector3 target, List<Vector3> blockedLocations)
+    {
+        IBlackboard currentBlackboard = new DefaultBlackboard();
+        currentBlackboard.SetBlockedLocations(blockedLocations);
         currentBlackboard.SetActionDestination(target);
         currentBlackboard.SetTargetGameObject(gameObject);
         currentBehaviorTree = CreateMovementBehaviorTree(currentBlackboard);

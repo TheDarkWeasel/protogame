@@ -26,5 +26,5 @@ public interface IPlayerSelectableObject
     void CreateSelectionCircle(GameObject selectionCirclePrefab);
     void DestroySelectionCircle();
 
-    void OnSecondaryAction(Vector3 postion);
+    void OnSecondaryAction(Vector3 postion, List<Vector3> blockedLocations);
 }
