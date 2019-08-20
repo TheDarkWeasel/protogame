@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using System.Collections.Generic;
 
 /**
  * Finds the next free spot near the action destination and writes it to the blackboard
@@ -42,7 +43,7 @@ public class CalculateNextFreePositionNode : LeafNode
                     //check, if the chosen location is marked as blocked
                     if (blackboard.GetBlockedLocations().Count > 0)
                     {
-                        bool blocked = CheckIfBlocked(spawnPos, radius);
+                        bool blocked = Utils.CheckIfBlocked(spawnPos, radius, blackboard.GetBlockedLocations());
 
                         if (blocked)
                         {
@@ -66,23 +67,6 @@ public class CalculateNextFreePositionNode : LeafNode
         {
             control.FinishWithSuccess();
         }
-    }
-
-    private bool CheckIfBlocked(Vector3 spawnPos, float radius)
-    {
-        Bounds bounds = new Bounds(spawnPos, new Vector3(radius, radius, radius));
-        bool blocked = false;
-
-        foreach (Vector3 location in blackboard.GetBlockedLocations())
-        {
-            if (bounds.Contains(location))
-            {
-                blocked = true;
-                break;
-            }
-        }
-
-        return blocked;
     }
 
     private void ModifySpawnPoint(ref Vector3 spawnPos, ref int triesPerFrameLeft)

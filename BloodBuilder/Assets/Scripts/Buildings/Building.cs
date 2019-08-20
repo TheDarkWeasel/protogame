@@ -3,6 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.AI;
 
+/**
+ * Base class for all buildings. Handles internal creation of buildings and manages the build queue.
+ **/ 
 public abstract class Building : IPlayerSelectableObject
 {
     protected string prefabPath;

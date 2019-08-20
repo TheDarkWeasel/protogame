@@ -5,7 +5,7 @@ using System.Text;
 using UnityEngine;
 
 /**
-  * Class taken from: https://hyunkell.com/blog/rts-style-unit-selection-in-unity-5/
+  * Class taken from: https://hyunkell.com/blog/rts-style-unit-selection-in-unity-5/ and extended with more useful stuff.
   **/
 public static class Utils
 {
@@ -70,5 +70,22 @@ public static class Utils
         Utils.DrawScreenRect(new Rect(rect.xMax - thickness, rect.yMin, thickness, rect.height), color);
         // Bottom
         Utils.DrawScreenRect(new Rect(rect.xMin, rect.yMax - thickness, rect.width, thickness), color);
+    }
+
+    public static bool CheckIfBlocked(Vector3 spawnPos, float radius, List<Vector3> blockedLocations)
+    {
+        Bounds bounds = new Bounds(spawnPos, new Vector3(radius, radius, radius));
+        bool blocked = false;
+
+        foreach (Vector3 location in blockedLocations)
+        {
+            if (bounds.Contains(location))
+            {
+                blocked = true;
+                break;
+            }
+        }
+
+        return blocked;
     }
 }

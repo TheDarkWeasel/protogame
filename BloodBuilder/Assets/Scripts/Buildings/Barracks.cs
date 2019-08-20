@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/**
+ * Building class of the Barracks, offering specific hotkeys and build choices.
+ **/
 public class Barracks : Building
 {
     List<IUnitManager> registeredUnitManagers = new List<IUnitManager>();

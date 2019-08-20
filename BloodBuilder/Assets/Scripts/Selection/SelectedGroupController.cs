@@ -12,7 +12,7 @@ public class SelectedGroupController
     private RaycastHit hitInfo;
     private Vector3 center = new Vector3(0, 0, 0);
 
-    private GameObject selectionCirclePrefab;
+    private readonly GameObject selectionCirclePrefab;
 
     public SelectedGroupController(ContextProvider context)
     {
@@ -34,6 +34,7 @@ public class SelectedGroupController
                 playerSelectableObject.Update();
             }
 
+            //TODO The code below, could take longer to execute. It should be put into another thread.
             if (isActive && Input.GetMouseButtonUp(1))
             {
                 Ray ray = mainCamera.ScreenPointToRay(Input.mousePosition);
@@ -71,9 +72,26 @@ public class SelectedGroupController
                     else
                     {
                         //If the click is inside the current formation, just move the units to the point (with a small random offset).
-                        foreach (IPlayerSelectableObject playerSelectableObject in selectedObjects)
+                        List<Vector3> offsets = new List<Vector3>();
+
+                        float range = 2.5f;
+
+                        for (int i = 0; i < selectedObjects.Count; i++)
                         {
-                            Vector3 offset = new Vector3(Random.Range(0, 1.5f), Random.Range(0, 1.5f), Random.Range(0, 1.5f));
+                            Vector3 vectorToAdd = new Vector3(Random.Range(-range, range), 0, Random.Range(-range, range));
+
+                            while (Utils.CheckIfBlocked(vectorToAdd, 1.0f, offsets))
+                            {
+                                vectorToAdd.x += Random.Range(-range, range);
+                                vectorToAdd.z += Random.Range(-range, range);
+                            }
+                            offsets.Add(vectorToAdd);
+                        }
+
+                        for (int i = 0; i < selectedObjects.Count; i++)
+                        {
+                            IPlayerSelectableObject playerSelectableObject = selectedObjects[i];
+                            Vector3 offset = offsets[i];
                             playerSelectableObject.OnSecondaryAction(hitInfo.point + offset, new List<Vector3>());
                             ShowTargetClue(offset);
                         }

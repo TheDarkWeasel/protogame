@@ -3,8 +3,8 @@
 public class GameController : MonoBehaviour
 {
 
-    private static ITheme theme = new OpenSourceTheme();
-    private static IHotkeys hotkeys = new PCHotkeys();
+    private static readonly ITheme theme = new OpenSourceTheme();
+    private static readonly IHotkeys hotkeys = new PCHotkeys();
     private PlacementController placementController;
     private SelectionController selectionController;
     private PlayerObjectPool playerObjectPool;
