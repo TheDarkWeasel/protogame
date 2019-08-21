@@ -28,10 +28,10 @@ public class SelectionController
 
     public void Update()
     {
-        if (isActive && !EventSystem.current.IsPointerOverGameObject())
+        if (isActive)
         {
             // If we press the left mouse button, begin selection and remember the location of the mouse
-            if (Input.GetMouseButtonDown(0))
+            if (Input.GetMouseButtonDown(0) && !EventSystem.current.IsPointerOverGameObject())
             {
                 isSelecting = true;
                 mousePosition1 = Input.mousePosition;
@@ -44,7 +44,7 @@ public class SelectionController
                 context.GetBuildChoiceUpdater().SetMainObjectForHud(null);
             }
             // If we let go of the left mouse button, end selection
-            if (Input.GetMouseButtonUp(0))
+            if (Input.GetMouseButtonUp(0) && isSelecting)
             {
                 IPlayerSelectableObject mainObjectForHUD = null;
 
