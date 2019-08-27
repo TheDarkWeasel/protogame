@@ -13,12 +13,29 @@ public class SelectedGroupController
     private Vector3 center = new Vector3(0, 0, 0);
 
     private readonly GameObject selectionCirclePrefab;
+    private ObjectPool<GameObject> selectionCirclePool;
 
     public SelectedGroupController(ContextProvider context)
     {
         this.context = context;
         mainCamera = Camera.main;
         selectionCirclePrefab = Resources.Load<GameObject>(GameController.GetGlobalTheme().GetSelectionCirclePrefabPath());
+        this.selectionCirclePool = new ObjectPool<GameObject>(() => InternalCreateSelectionCircle(), (i) => InternalActivateSelectionCircle(i), (i) => InternalDeactivateSelectionCircle(i));
+    }
+
+    private GameObject InternalCreateSelectionCircle()
+    {
+        return Object.Instantiate(selectionCirclePrefab);
+    }
+
+    private void InternalActivateSelectionCircle(GameObject selectionCircle)
+    {
+        selectionCircle.SetActive(true);
+    }
+
+    private void InternalDeactivateSelectionCircle(GameObject selectionCircle)
+    {
+        selectionCircle.SetActive(false);
     }
 
     public void Update()
@@ -106,13 +123,17 @@ public class SelectedGroupController
      **/
     private void ShowTargetClue(Vector3 offset)
     {
-        //TODO Add pooling for this
-        GameObject targetClue = Object.Instantiate(selectionCirclePrefab);
+        GameObject targetClue = selectionCirclePool.GetObject();
         targetClue.transform.position = hitInfo.point + offset;
         targetClue.transform.eulerAngles = new Vector3(90, 0, 0);
         targetClue.GetComponent<Projector>().orthographicSize = 1f;
         targetClue.GetComponent<Animation>().Play("SelectionFadeOut");
-        Object.Destroy(targetClue, 1f);
+        context.GetMonoBehaviour().StartCoroutine(Utils.ExecuteAfterTime(1f, () => PutBackToPool(targetClue)));
+    }
+
+    private void PutBackToPool(GameObject selectionCircle)
+    {
+        selectionCirclePool.PutObject(selectionCircle);
     }
 
     public bool IsActive()

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -87,5 +88,11 @@ public static class Utils
         }
 
         return blocked;
+    }
+
+    public static IEnumerator ExecuteAfterTime(float time, Action objectGenerator)
+    {
+        yield return new WaitForSeconds(time);
+        objectGenerator.Invoke();
     }
 }

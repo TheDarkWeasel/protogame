@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Collections.Concurrent;
 
+/**
+ * Generic object pool. Recycles objects, if available, creates new objects otherwise.
+ **/ 
 public class ObjectPool<T>
 {
     private ConcurrentBag<T> objects;

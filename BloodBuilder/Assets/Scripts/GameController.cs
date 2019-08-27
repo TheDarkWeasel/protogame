@@ -1,5 +1,8 @@
 ﻿using UnityEngine;
 
+/**
+ * 'Main' class, which is putting everthing together and is doing all the setup.
+ **/
 public class GameController : MonoBehaviour
 {
 

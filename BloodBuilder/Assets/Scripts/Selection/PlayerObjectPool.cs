@@ -1,5 +1,8 @@
 ﻿using System.Collections.Generic;
 
+/**
+ * Class which can be asked, which objects belong to the player, which objects he has selected and which of them can be sacrificed.
+ **/ 
 public class PlayerObjectPool
 {
     private List<ISelectableObjectContainer> selectableObjectcontainers = new List<ISelectableObjectContainer>();
