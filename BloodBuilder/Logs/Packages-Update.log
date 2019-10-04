@@ -53,3 +53,11 @@ Update Mode: updateDependencies
 
 The following packages were updated:
   com.unity.ide.vscode from version 1.0.7 to 1.1.0
+
+=== Fri Oct  4 21:18:18 2019
+
+Packages were changed.
+Update Mode: updateDependencies
+
+The following packages were updated:
+  com.unity.ide.vscode from version 1.1.0 to 1.1.2
