@@ -22,6 +22,7 @@ These rules force the player to consider whether it is worth building a new buil
   - Player starting points
   - AI
   - Winning conditions
+  - Fog of war
   - At least one nice map
   - More units/buildings
   - Polish
