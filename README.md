@@ -1,4 +1,4 @@
-# Necrosynthesia
+# Necrosynthesia (Prototype)
 Necrosynthesia is a simple RTS, with the following rules:
   - Units are built for no costs at all
   - For constructing a building you need blood
