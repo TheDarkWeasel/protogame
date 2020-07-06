@@ -1,7 +1,7 @@
 # Necrosynthesia (Prototype)
 __Further development of Necrosynthesia will take place in a private repository. I will still leave this repository as it is
 so people may learn from it :) Also I may still occasionally update the unity version. If you are interested in how the game
-develops, you can follow me on [twitter](https://twitter.com/necrosynthesia) and [itch.io](https://d4rkweasel.itch.io/necrosynthesia)__
+develops, you can follow me on [twitter](https://twitter.com/necrosynthesia) and [itch.io](https://d4rkweasel.itch.io/necrosynthesia).__
 
 Necrosynthesia is a simple RTS, with the following rules:
   - Units are built for no costs at all
